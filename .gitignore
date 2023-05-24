@@ -1,1 +1,6 @@
-ref
+__pycache__
+*build*
+*egg-info*
+*.DS_Store*
+ref/*
+dped/*
