@@ -2,5 +2,8 @@ __pycache__
 *build*
 *egg-info*
 *.DS_Store*
-ref/*
+dped.gz
+ref
 dped/*
+.gitignore
+.gitattribute
