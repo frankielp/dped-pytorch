@@ -1,4 +1,4 @@
-# Automatic photo quality enhancement using Deep Convolutional Networks
+# DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks
  
 # Citation
 ```
