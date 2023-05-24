@@ -5,6 +5,5 @@ __pycache__
 dped.gz
 ref
 dped/*
-!dped
 .gitignore
 .gitattribute
