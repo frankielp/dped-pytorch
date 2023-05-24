@@ -1,0 +1,37 @@
+Wed May 24 16:46:28 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.105.01   Driver Version: 515.105.01   CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0 Off |                  N/A |
+|  0%   44C    P8    19W / 280W |      1MiB / 11264MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/condabin/conda
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/conda
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/conda-env
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/activate
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/deactivate
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/profile.d/conda.sh
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/fish/conf.d/conda.fish
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/shell/condabin/Conda.psm1
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/shell/condabin/conda-hook.ps1
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/lib/python3.8/site-packages/xontrib/conda.xsh
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/profile.d/conda.csh
+no change     /home/lpnquynh/.bashrc
+No action taken.
+iteration 18000, processing image test03.png
+iteration 18000, processing image test00.png
+iteration 18000, processing image test01.png
+iteration 18000, processing image test02.png

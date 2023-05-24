@@ -1,0 +1,10 @@
+#ML
+imageio
+numpy
+Pillow
+scipy
+opencv-python
+# Code invention
+git+https://github.com/psf/black
+autoflake
+isort
