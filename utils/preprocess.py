@@ -1,5 +1,5 @@
 def get_specified_res(phone, resolution):
-    default_res=default_resolutions()
+    default_res = default_resolutions()
     if resolution == "orig":
         IMAGE_HEIGHT = default_res[phone][0]
         IMAGE_WIDTH = default_res[phone][1]
@@ -12,10 +12,8 @@ def get_specified_res(phone, resolution):
     return IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_SIZE
 
 
-
 # Support function
 def default_resolutions():
-
     # IMAGE_HEIGHT, IMAGE_WIDTH
 
     default_res = {}
@@ -34,19 +32,19 @@ def default_resolutions():
     default_res["tiny"] = [600, 800]
 
     return default_res
+
+
 def extract_crop(image, resolution, phone):
-    default_res=default_resolutions()
+    default_res = default_resolutions()
 
     if resolution == "orig":
         return image
 
     else:
-
         x_up = int((default_res[phone][1] - default_res[resolution][1]) / 2)
         y_up = int((default_res[phone][0] - default_res[resolution][0]) / 2)
 
         x_down = x_up + default_res[resolution][1]
         y_down = y_up + default_res[resolution][0]
 
-        return image[y_up : y_down, x_up : x_down, :]
-
+        return image[y_up:y_down, x_up:x_down, :]
