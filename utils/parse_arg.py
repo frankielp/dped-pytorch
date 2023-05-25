@@ -16,7 +16,7 @@ def train_args(arguments):
         'w_texture' : 1,
         'w_tv' : 2000,
 
-        'dataset' : 'dped/',
+        'datadir' : 'dped/',
         'vgg_pretrained' : 'vgg_pretrained/imagenet-vgg-verydeep-19.mat',
         'eval_step' : 1000,
 
@@ -55,8 +55,8 @@ def train_args(arguments):
 
         # -----------------------------------
 
-        if args.startswith("dataset"):
-            params['dataset'] = args.split("=")[1]
+        if args.startswith("datadir"):
+            params['datadir'] = args.split("=")[1]
 
         if args.startswith("vgg_pretrained"):
             params['vgg_pretrained'] = args.split("=")[1]
@@ -82,7 +82,7 @@ def train_args(arguments):
     print("Texture loss:", params['w_texture'])
     print("Total variation loss:", params['w_tv'])
     print()
-    print("Path to DPED dataset:", params['dataset'])
+    print("Path to DPED dataset:", params['datadir'])
     print("Path to VGG-19 network:", params['vgg_pretrained'])
     print("Evaluation step:", params['eval_step'])
     print()
@@ -95,7 +95,7 @@ def test_args(arguments):
 
     params={
         'phone' : "",
-        'dataset' : 'dped/',
+        'datadir' : 'dped/',
         'test_subset' : "small",
         'iteration' : "all",
         'resolution' : "orig",
@@ -107,8 +107,8 @@ def test_args(arguments):
         if args.startswith("model"):
             params['phone'] = args.split("=")[1]
 
-        if args.startswith("dataset"):
-            params['dataset'] = args.split("=")[1]
+        if args.startswith("datadir"):
+            params['datadir'] = args.split("=")[1]
 
         if args.startswith("test_subset"):
             params['test_subset'] = args.split("=")[1]
