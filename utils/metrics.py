@@ -1,11 +1,9 @@
-import torch
-import torch.nn.functional as F
 import cv2
 import numpy as np
+import torch
+import torch.nn.functional as F
 from scipy import signal
 from scipy.ndimage import convolve
-
-
 
 
 def gauss_kernel(size, sigma):
@@ -46,11 +44,11 @@ def SSIM(img1, img2, max_val=255, filter_size=11, filter_sigma=1.5, k1=0.01, k2=
     # applying fast fourier transform convolve
     if filter_size:
         window = torch.reshape(gauss_kernel(size, sigma), (1, size, size, 1))
-        mu1 = signal.fftconvolve(img1, window, mode='valid')
-        mu2 = signal.fftconvolve(img2, window, mode='valid')
-        sigma11 = signal.fftconvolve(img1 * img1, window, mode='valid')
-        sigma22 = signal.fftconvolve(img2 * img2, window, mode='valid')
-        sigma12 = signal.fftconvolve(img1 * img2, window, mode='valid')
+        mu1 = signal.fftconvolve(img1, window, mode="valid")
+        mu2 = signal.fftconvolve(img2, window, mode="valid")
+        sigma11 = signal.fftconvolve(img1 * img1, window, mode="valid")
+        sigma22 = signal.fftconvolve(img2 * img2, window, mode="valid")
+        sigma12 = signal.fftconvolve(img1 * img2, window, mode="valid")
     else:
         # If filter_size is 0, skip the filtering step
         mu1, mu2 = img1, img2
@@ -109,27 +107,44 @@ def MultiScaleSSIM(
 
     for _ in range(levels):
         # Calculate SSIM and CS at the current scale
-        ssim, cs = SSIM(im1, im2, max_val=max_val, filter_size=filter_size, filter_sigma=filter_sigma, k1=k1, k2=k2)
+        ssim, cs = SSIM(
+            im1,
+            im2,
+            max_val=max_val,
+            filter_size=filter_size,
+            filter_sigma=filter_sigma,
+            k1=k1,
+            k2=k2,
+        )
 
         # Store the SSIM and CS values
         mssim = np.append(mssim, ssim)
         mcs = np.append(mcs, cs)
 
         # Downsample the images for the next scale
-        filtered = [convolve(im, downsample_filter, mode='reflect') for im in [im1, im2]]
+        filtered = [
+            convolve(im, downsample_filter, mode="reflect") for im in [im1, im2]
+        ]
         im1, im2 = [torch.tensor(x[:, ::2, ::2, :]) for x in filtered]
 
     # Calculate the final MS-SSIM value
-    ms_ssim = np.prod(mcs[0:levels-1] ** weights[0:levels-1]) * (mssim[levels-1] ** weights[levels-1])
+    ms_ssim = np.prod(mcs[0 : levels - 1] ** weights[0 : levels - 1]) * (
+        mssim[levels - 1] ** weights[levels - 1]
+    )
 
     return ms_ssim
 
-if __name__=="__main__":
-    print('Testing ssim.py')
+
+if __name__ == "__main__":
+    print("Testing ssim.py")
     # Test case 1
-    img1 = cv2.imread('../ref/test_img/test00.png')  # Replace 'image1.jpg' with the path to your first image
-    img2 = cv2.imread('../ref/test_img/test01.png')  # Replace 'image2.jpg' with the path to your second image
-    img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0])) 
+    img1 = cv2.imread(
+        "../ref/test_img/test00.png"
+    )  # Replace 'image1.jpg' with the path to your first image
+    img2 = cv2.imread(
+        "../ref/test_img/test01.png"
+    )  # Replace 'image2.jpg' with the path to your second image
+    img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0]))
     img1 = torch.from_numpy(np.expand_dims(img1, axis=0))
     img2 = torch.from_numpy(np.expand_dims(img2, axis=0))
     max_val = 255
@@ -139,13 +154,25 @@ if __name__=="__main__":
     k2 = 0.03
     weights = [0.0448, 0.2856, 0.3001, 0.2363, 0.1333]
 
-    ms_ssim = MultiScaleSSIM(img1, img2, max_val=max_val, filter_size=filter_size, filter_sigma=filter_sigma,
-                             k1=k1, k2=k2, weights=weights)
+    ms_ssim = MultiScaleSSIM(
+        img1,
+        img2,
+        max_val=max_val,
+        filter_size=filter_size,
+        filter_sigma=filter_sigma,
+        k1=k1,
+        k2=k2,
+        weights=weights,
+    )
 
     # Test case 2 (additional test case)
-    img3 = cv2.imread('../ref/test_img/test02.png')  # Replace 'image3.jpg' with the path to your third image
-    img4 = cv2.imread('../ref/test_img/test03.png')  # Replace 'image4.jpg' with the path to your fourth image
-    img3 = cv2.resize(img3, (img4.shape[1], img4.shape[0])) 
+    img3 = cv2.imread(
+        "../ref/test_img/test02.png"
+    )  # Replace 'image3.jpg' with the path to your third image
+    img4 = cv2.imread(
+        "../ref/test_img/test03.png"
+    )  # Replace 'image4.jpg' with the path to your fourth image
+    img3 = cv2.resize(img3, (img4.shape[1], img4.shape[0]))
     img3 = torch.from_numpy(np.expand_dims(img3, axis=0))
     img4 = torch.from_numpy(np.expand_dims(img4, axis=0))
 
@@ -156,13 +183,21 @@ if __name__=="__main__":
     k2 = 0.03
     weights = [0.0448, 0.2856, 0.3001, 0.2363, 0.1333]
 
-    ms_ssim2 = MultiScaleSSIM(img3, img4, max_val=max_val, filter_size=filter_size, filter_sigma=filter_sigma,
-                              k1=k1, k2=k2, weights=weights)
+    ms_ssim2 = MultiScaleSSIM(
+        img3,
+        img4,
+        max_val=max_val,
+        filter_size=filter_size,
+        filter_sigma=filter_sigma,
+        k1=k1,
+        k2=k2,
+        weights=weights,
+    )
 
     # Assert statements
     assert ms_ssim >= 0.0 and ms_ssim <= 1.0, "Invalid MS-SSIM value for test case 1"
     assert ms_ssim2 >= 0.0 and ms_ssim2 <= 1.0, "Invalid MS-SSIM value for test case 2"
 
-    print(f'ssim for test case 1 {ms_ssim}')
-    print(f'ssim for test case 2 {ms_ssim2}')
+    print(f"ssim for test case 1 {ms_ssim}")
+    print(f"ssim for test case 2 {ms_ssim2}")
     print("All test cases passed!")

@@ -4,6 +4,7 @@ __pycache__
 *.DS_Store*
 dped.gz
 ref
+pretrained/
 dped/*
 .gitignore
 .gitattribute

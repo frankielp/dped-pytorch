@@ -3,7 +3,7 @@ import os
 import numpy as np
 import torch
 from PIL import Image
-from preprocess import *
+from utils.preprocess import *
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from tqdm import tqdm
@@ -126,7 +126,7 @@ class DPEDTrainDataset(Dataset):
                 dslr_image_path = os.path.join(dslr_dir, str(img_path) + ".jpg")
 
                 phone_image = (
-                    np.float16(np.array(Image.open(phone_image_path))) / 255
+                    np.float16(np.array(Image.open(phone_image_path))) / 255 #(100,100,3)
                 )  # 0-255 -> 0-1
                 phone_image_2d = np.reshape(phone_image, [1, PATCH_SIZE])
                 phone_image_tensor = self.transform(phone_image_2d)
