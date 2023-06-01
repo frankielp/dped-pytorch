@@ -4,13 +4,13 @@
 1. Import Libraries       - done
 2. Initial Setting        - done
 3. Configure Data Loader  - done
-4. Define Generator       - upcoming
-5. Define Discriminator
-6. Define Loss Function
-7. Initialize Generator and Discriminator
-8. GPU Setting
-9. Define Optimizers
-10. Training 
+4. Define Generator       - done
+5. Define Discriminator   - done
+6. Training
+7. Predict
+8. Web
+9. Docker
+10. FINALIZATION
 
 # Citation
 ```
