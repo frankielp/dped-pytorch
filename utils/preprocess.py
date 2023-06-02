@@ -1,7 +1,9 @@
-import torch
-import torch.nn.functional as F
 import numpy as np
+import torch
+from torch import nn
+import torch.nn.functional as F
 from scipy.stats import norm
+
 
 def get_specified_res(phone, resolution):
     default_res = default_resolutions()
@@ -54,36 +56,23 @@ def extract_crop(image, resolution, phone):
 
         return image[y_up:y_down, x_up:x_down, :]
 
+
+
 def gauss_kernel(kernlen=21, nsig=3, channels=1):
     interval = (2 * nsig + 1.) / (kernlen)
     x = np.linspace(-nsig - interval / 2., nsig + interval / 2., kernlen + 1)
     kern1d = np.diff(norm.cdf(x))
     kernel_raw = np.sqrt(np.outer(kern1d, kern1d))
     kernel = kernel_raw / kernel_raw.sum()
-    out_filter = np.array(kernel, dtype=np.float32)
-    out_filter = out_filter.reshape((1, 1, kernlen, kernlen))
-    out_filter = np.repeat(out_filter, channels, axis=1)
-    return torch.from_numpy(out_filter)
+    gaussian_kernel = np.array(kernel, dtype=np.float32)
+    gaussian_kernel = torch.from_numpy(gaussian_kernel).view(1, 1, kernlen, kernlen)
+    gaussian_kernel = gaussian_kernel.repeat(channels, 1, 1, 1)
+    return gaussian_kernel
+
 
 def blur(x):
-    kernel_var = gauss_kernel(21, 3, x.size(1))
-    kernel_var = kernel_var.to(x.device)  # Move the kernel to the same device as input tensor
-    return F.conv2d(x, kernel_var, padding=(21 // 2), groups=x.size(1))
-
-def gaussian_blur(image, kernel_size=21, sigma=3):
-    # Create a Gaussian kernel
-    kernel = torch.ones(1, 1, kernel_size, kernel_size)
-    kernel = kernel.to(image.device)  # Move the kernel to the same device as the input tensor
-    kernel = kernel.float()
-    kernel = kernel / (2 * sigma**2)
-    kernel = kernel * (-1 / (2 * sigma**2))
-    kernel = torch.exp(kernel)
-    
-    # Normalize the kernel
-    kernel_sum = torch.sum(kernel)
-    kernel = kernel / kernel_sum
-
-    # Apply convolution with the Gaussian kernel
-    blurred_image = F.conv2d(image, kernel, padding=kernel_size // 2, groups=image.size(1))
-    
-    return blurred_image
+    gaussian_filter = nn.Conv2d(in_channels=3, out_channels=3,
+                                    kernel_size=21, groups=3, bias=False)
+    gaussian_filter=gaussian_filter.to(x.device)
+    gaussian_filter.weight.data = gauss_kernel(21,3,3)
+    return gaussian_filter(x)

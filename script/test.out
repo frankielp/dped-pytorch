@@ -1,4 +1,4 @@
-Thu Jun  1 18:33:31 2023       
+Fri Jun  2 11:55:05 2023       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 515.105.01   Driver Version: 515.105.01   CUDA Version: 11.7     |
 |-------------------------------+----------------------+----------------------+
@@ -36,3 +36,38 @@ no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-
 no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/profile.d/conda.csh
 no change     /home/lpnquynh/.bashrc
 No action taken.
+
+The following parameters will be applied for CNN training:
+
+Phone model: iphone
+Batch size: 50
+Learning rate: 0.0005
+Epochs: 20000
+
+Content loss: 10
+Color loss: 0.5
+Texture loss: 1
+Total variation loss: 2000
+
+Path to DPED dataset: dped/
+Path to VGG-19 network: pretrained/imagenet-vgg-verydeep-19.mat
+Evaluation step: 1000
+
+Loading train data
+Loading eval data
+Start training
+discrim result torch.Size([10, 2])
+tensor([[0.4744, 0.5256],
+        [0.5190, 0.4810],
+        [0.5125, 0.4875],
+        [0.4397, 0.5603],
+        [0.4772, 0.5228],
+        [0.5255, 0.4745],
+        [0.6300, 0.3700],
+        [0.5233, 0.4767],
+        [0.5433, 0.4567],
+        [0.4741, 0.5259]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+loss_texture tensor(-7.3525, device='cuda:0', grad_fn=<NegBackward0>)
+correct_predictions tensor([0., 0., 0., 1., 0., 0., 0., 0., 1., 0.], device='cuda:0')
+discrim_accuracy tensor(0.2000, device='cuda:0')
+loss_content tensor(8.2383e-07, device='cuda:0', grad_fn=<DivBackward0>)

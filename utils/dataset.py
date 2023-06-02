@@ -3,10 +3,11 @@ import os
 import numpy as np
 import torch
 from PIL import Image
-from utils.preprocess import *
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from tqdm import tqdm
+
+from utils.preprocess import *
 
 PATCH_WIDTH = 100
 PATCH_HEIGHT = 100
@@ -126,7 +127,8 @@ class DPEDTrainDataset(Dataset):
                 dslr_image_path = os.path.join(dslr_dir, str(img_path) + ".jpg")
 
                 phone_image = (
-                    np.float16(np.array(Image.open(phone_image_path))) / 255 #(100,100,3)
+                    np.float16(np.array(Image.open(phone_image_path)))
+                    / 255  # (100,100,3)
                 )  # 0-255 -> 0-1
                 phone_image_2d = np.reshape(phone_image, [1, PATCH_SIZE])
                 phone_image_tensor = self.transform(phone_image_2d)
@@ -158,6 +160,9 @@ class DPEDTrainDataset(Dataset):
                     if os.path.isfile(os.path.join(phone_dir, name))
                 ]
             )
+
+            # for debug
+            NUM_TEST_IMAGES=1
 
             # Reshape and transform to tensor
             print("Loading eval data")

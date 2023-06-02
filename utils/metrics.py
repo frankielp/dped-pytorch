@@ -147,6 +147,7 @@ if __name__ == "__main__":
     img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0]))
     img1 = torch.from_numpy(np.expand_dims(img1, axis=0))
     img2 = torch.from_numpy(np.expand_dims(img2, axis=0))
+    print('input shape', img1.shape)
     max_val = 255
     filter_size = 11
     filter_sigma = 1.5

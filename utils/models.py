@@ -7,18 +7,18 @@ class ResNet(nn.Module):
         super(ResNet, self).__init__()
 
         self.generator = nn.Sequential(
-            nn.Conv2d(3,64, kernel_size=9, stride=1, padding=4),
-            nn.ReLU(inplace=True),
+            nn.Conv2d(3, 64, kernel_size=9, stride=1, padding=4),
+            nn.ReLU(),
             ResidualBlock(64, 64),
             ResidualBlock(64, 64),
             ResidualBlock(64, 64),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             ResidualBlock(64, 64),
             ResidualBlock(64, 64),
             ResidualBlock(64, 64),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(64, 3, kernel_size=9, stride=1, padding=4),
             nn.Tanh(),
         )
@@ -36,7 +36,7 @@ class ResidualBlock(nn.Module):
             in_channels, out_channels, kernel_size=3, stride=1, padding=1
         )
         self.bn1 = nn.InstanceNorm2d(out_channels)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU()
         self.conv2 = nn.Conv2d(
             out_channels, out_channels, kernel_size=3, stride=1, padding=1
         )
@@ -65,17 +65,14 @@ class Adversarial(nn.Module):
             ConvLayer(192, 128, kernel_size=3, stride=2),
         )
         self.fc = nn.Sequential(
-            nn.Linear(128 * 7 * 7, 1024), nn.LeakyReLU(0.2, inplace=True)
+            nn.Linear(128 * 7 * 7, 1024), nn.LeakyReLU(0.2),nn.Linear(1024, 2),nn.Softmax(dim=1)
         )
-        self.out = nn.Linear(1024, 2)
-        self.softmax = nn.Softmax(dim=1)
+
 
     def forward(self, image_):
         out = self.discriminator(image_)
-        out = out.view(out.size(0), -1)
-        out = self.fc(out)
-        out = self.out(out)
-        adv_out = self.softmax(out)
+        out_view = out.view(out.size(0), -1)
+        adv_out = self.fc(out_view.clone())
         return adv_out
 
 
@@ -94,7 +91,7 @@ class ConvLayer(nn.Module):
         ]
         if batch_norm:
             layers.append(nn.BatchNorm2d(out_channels))
-        layers.append(nn.LeakyReLU(0.2, inplace=True))
+        layers.append(nn.LeakyReLU(0.2))
 
         self.layers = nn.Sequential(*layers)
 

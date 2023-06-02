@@ -95,8 +95,7 @@ class VGGNet(nn.Module):
         pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         return pool
 
-
-    def preprocess(self,image):
+    def preprocess(self, image):
         # return image - torch.tensor(IMAGE_MEAN)
         return F.normalize(image, dim=1)
 

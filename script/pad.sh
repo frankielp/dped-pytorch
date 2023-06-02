@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=test          # create a short name for your job
+#SBATCH --job-name=train         # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=4       # cpu-cores per task (>1 if multi-threaded tasks)
@@ -45,10 +45,9 @@ source activate cinnamon
 
 ## TEST
 cd ..
-python train.py model=iphone train_size=10 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+# python train.py model=iphone train_size=10 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
 # python test.py
 sleep infinity
-
 
 conda deactivate
 
