@@ -65,9 +65,11 @@ class Adversarial(nn.Module):
             ConvLayer(192, 128, kernel_size=3, stride=2),
         )
         self.fc = nn.Sequential(
-            nn.Linear(128 * 7 * 7, 1024), nn.LeakyReLU(0.2),nn.Linear(1024, 2),nn.Softmax(dim=1)
+            nn.Linear(128 * 7 * 7, 1024),
+            nn.LeakyReLU(0.2),
+            nn.Linear(1024, 2),
+            nn.Softmax(dim=1),
         )
-
 
     def forward(self, image_):
         out = self.discriminator(image_)

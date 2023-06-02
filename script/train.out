@@ -1,4 +1,4 @@
-Fri Jun  2 17:00:49 2023       
+Fri Jun  2 19:20:14 2023       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 515.105.01   Driver Version: 515.105.01   CUDA Version: 11.7     |
 |-------------------------------+----------------------+----------------------+
@@ -6,8 +6,8 @@ Fri Jun  2 17:00:49 2023
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |                               |                      |               MIG M. |
 |===============================+======================+======================|
-|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
-| 71%   61C    P0   140W / 300W |      0MiB / 24576MiB |      0%      Default |
+|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0 Off |                  N/A |
+|  0%   51C    P8    16W / 250W |      1MiB / 11264MiB |      4%      Default |
 |                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
                                                                                
@@ -54,5 +54,3 @@ Path to VGG-19 network: pretrained/imagenet-vgg-verydeep-19.mat
 Evaluation step: 1000
 
 Loading train data
-Loading eval data
-Start training

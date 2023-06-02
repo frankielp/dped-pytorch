@@ -162,7 +162,7 @@ class DPEDTrainDataset(Dataset):
             )
 
             # for debug
-            NUM_TEST_IMAGES=1
+            # NUM_TEST_IMAGES = 10
 
             # Reshape and transform to tensor
             print("Loading eval data")

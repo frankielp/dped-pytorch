@@ -1,8 +1,8 @@
 import numpy as np
 import torch
-from torch import nn
 import torch.nn.functional as F
 from scipy.stats import norm
+from torch import nn
 
 
 def get_specified_res(phone, resolution):
@@ -57,10 +57,9 @@ def extract_crop(image, resolution, phone):
         return image[y_up:y_down, x_up:x_down, :]
 
 
-
 def gauss_kernel(kernlen=21, nsig=3, channels=1):
-    interval = (2 * nsig + 1.) / (kernlen)
-    x = np.linspace(-nsig - interval / 2., nsig + interval / 2., kernlen + 1)
+    interval = (2 * nsig + 1.0) / (kernlen)
+    x = np.linspace(-nsig - interval / 2.0, nsig + interval / 2.0, kernlen + 1)
     kern1d = np.diff(norm.cdf(x))
     kernel_raw = np.sqrt(np.outer(kern1d, kern1d))
     kernel = kernel_raw / kernel_raw.sum()
@@ -71,8 +70,9 @@ def gauss_kernel(kernlen=21, nsig=3, channels=1):
 
 
 def blur(x):
-    gaussian_filter = nn.Conv2d(in_channels=3, out_channels=3,
-                                    kernel_size=21, groups=3, bias=False)
-    gaussian_filter=gaussian_filter.to(x.device)
-    gaussian_filter.weight.data = gauss_kernel(21,3,3)
+    gaussian_filter = nn.Conv2d(
+        in_channels=3, out_channels=3, kernel_size=21, groups=3, bias=False
+    )
+    gaussian_filter = gaussian_filter.to(x.device)
+    gaussian_filter.weight.data = gauss_kernel(21, 3, 3).to(x.device)
     return gaussian_filter(x)

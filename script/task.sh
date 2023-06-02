@@ -10,9 +10,9 @@
 #SBATCH --mail-user=<YourNetID>@princeton.edu
 #Number of GPUs, this can be in the format of "gpu:[1-4]", or "gpu:K80:[1-4] with the type included
 #SBATCH --gres=gpu:1
-#SBATCH --nodelist=selab2
-#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/test.out
-#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/test.err
+#SBATCH --nodelist=selab4
+#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/train.out
+#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/train.err
 
 module purge
 module load anaconda3-2021.05-gcc-9.3.0-r6itwa7
@@ -45,7 +45,8 @@ source activate cinnamon
 
 ## TEST
 cd ..
-python train.py model=iphone train_size=10 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+python train.py model=iphone train_size=30000 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+# python train.py model=iphone epochs=10 train_size=10 eval_step=2 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
 # python test.py
 sleep infinity
 

@@ -36,7 +36,10 @@ def SSIM(img1, img2, max_val=255, filter_size=11, filter_sigma=1.5, k1=0.01, k2=
     # Calculate SSIM and CS for multi-scale images
     img1 = img1.float()
     img2 = img2.float()
-    _, height, width, _ = img1.shape
+    
+    img1_cpu=img1.cpu()
+    img2_cpu=img2.cpu()
+    _, height, width, _ = img1_cpu.shape
 
     size = min(filter_size, height, width)
     sigma = size * filter_sigma / filter_size if filter_size else 0
@@ -44,17 +47,17 @@ def SSIM(img1, img2, max_val=255, filter_size=11, filter_sigma=1.5, k1=0.01, k2=
     # applying fast fourier transform convolve
     if filter_size:
         window = torch.reshape(gauss_kernel(size, sigma), (1, size, size, 1))
-        mu1 = signal.fftconvolve(img1, window, mode="valid")
-        mu2 = signal.fftconvolve(img2, window, mode="valid")
-        sigma11 = signal.fftconvolve(img1 * img1, window, mode="valid")
-        sigma22 = signal.fftconvolve(img2 * img2, window, mode="valid")
-        sigma12 = signal.fftconvolve(img1 * img2, window, mode="valid")
+        mu1 = signal.fftconvolve(img1_cpu, window, mode="valid")
+        mu2 = signal.fftconvolve(img2_cpu, window, mode="valid")
+        sigma11 = signal.fftconvolve(img1_cpu * img1_cpu, window, mode="valid")
+        sigma22 = signal.fftconvolve(img2_cpu * img2_cpu, window, mode="valid")
+        sigma12 = signal.fftconvolve(img1_cpu * img2_cpu, window, mode="valid")
     else:
         # If filter_size is 0, skip the filtering step
-        mu1, mu2 = img1, img2
-        sigma11 = img1 * img1
-        sigma22 = img2 * img2
-        sigma12 = img1 * img2
+        mu1, mu2 = img1_cpu, img2_cpu
+        sigma11 = img1_cpu * img1_cpu
+        sigma22 = img2_cpu * img2_cpu
+        sigma12 = img1_cpu * img2_cpu
 
     # Calculate the squared means
     mu11 = mu1 * mu1
@@ -123,7 +126,7 @@ def MultiScaleSSIM(
 
         # Downsample the images for the next scale
         filtered = [
-            convolve(im, downsample_filter, mode="reflect") for im in [im1, im2]
+            convolve(im.cpu(), downsample_filter, mode="reflect") for im in [im1, im2]
         ]
         im1, im2 = [torch.tensor(x[:, ::2, ::2, :]) for x in filtered]
 
@@ -147,7 +150,7 @@ if __name__ == "__main__":
     img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0]))
     img1 = torch.from_numpy(np.expand_dims(img1, axis=0))
     img2 = torch.from_numpy(np.expand_dims(img2, axis=0))
-    print('input shape', img1.shape)
+    print("input shape", img1.shape)
     max_val = 255
     filter_size = 11
     filter_sigma = 1.5
