@@ -53,6 +53,11 @@ The following arguments can be passed to the `predict.py` script:
 - `iteration=<value>`: Specify the iteration number of the trained model checkpoint to use for prediction. Default: `all`.
 - `resolution=<value>`: Specify the resolution of the output enhanced images. Available options: `orig`, `
 
+Example usage:
+```bash
+python predict.py model=iphone datadir=test_img/ test_subset=full iteration=18000 resolution=orig use_gpu=true
+```
+
 ## Task Checklist:
 1. Import Libraries       - done
 2. Initial Setting        - done
