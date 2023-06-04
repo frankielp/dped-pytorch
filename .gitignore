@@ -11,4 +11,4 @@ dped/*
 .gitignore
 .gitattribute
 
-!/home/lpnquynh/desktop/dped-pytorch/models/exp_14/weights/generator_epoches_411.pth
+!models/exp_14/weights/generator_epoches_411.pth
