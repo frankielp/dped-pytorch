@@ -1,4 +1,4 @@
-Fri Jun  2 17:00:49 2023       
+Sat Jun  3 12:34:51 2023       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 515.105.01   Driver Version: 515.105.01   CUDA Version: 11.7     |
 |-------------------------------+----------------------+----------------------+
@@ -6,8 +6,8 @@ Fri Jun  2 17:00:49 2023
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |                               |                      |               MIG M. |
 |===============================+======================+======================|
-|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
-| 71%   61C    P0   140W / 300W |      0MiB / 24576MiB |      0%      Default |
+|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0 Off |                  N/A |
+|  0%   49C    P8    19W / 250W |      1MiB / 11264MiB |      0%      Default |
 |                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
                                                                                
@@ -41,18 +41,618 @@ The following parameters will be applied for CNN training:
 
 Phone model: iphone
 Batch size: 50
-Learning rate: 0.0005
+Learning rate: 0.0002
 Epochs: 20000
 
-Content loss: 10
-Color loss: 0.5
-Texture loss: 1
-Total variation loss: 2000
+Content loss: 1.0
+Color loss: 0.1
+Texture loss: 0.4
+Total variation loss: 400.0
 
 Path to DPED dataset: dped/
 Path to VGG-19 network: pretrained/imagenet-vgg-verydeep-19.mat
-Evaluation step: 1000
+Evaluation step: 2
 
 Loading train data
 Loading eval data
 Start training
+Epochs: 1/20000
+ Train Loss - Generator: 13.1727, Discriminator: 0.2541 | Elapsed: 311.1166
+Epochs: 2/20000
+ Train Loss - Generator: 8.5143, Discriminator: 0.0003 | Elapsed: 308.3990
+Start evaluating
+Epoch 1, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 8.514, test: nan | content: 1.398e-07, color: 80.85, texture: nan, tv: 4.372e-07 | psnr: 8.164, ms-ssim: 0.01327
+
+Epochs: 3/20000
+ Train Loss - Generator: 7.9461, Discriminator: 0.0000 | Elapsed: 299.3432
+Epochs: 4/20000
+ Train Loss - Generator: 7.6329, Discriminator: 0.0009 | Elapsed: 309.8009
+Start evaluating
+Epoch 3, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 7.633, test: nan | content: 1.323e-07, color: 73.48, texture: nan, tv: 3.541e-07 | psnr: 9.209, ms-ssim: 0.01502
+
+Epochs: 5/20000
+ Train Loss - Generator: 7.4270, Discriminator: 0.0452 | Elapsed: 316.7261
+Epochs: 6/20000
+ Train Loss - Generator: 7.2652, Discriminator: 0.1176 | Elapsed: 318.0656
+Start evaluating
+Epoch 5, iphone | discriminator accuracy | train: 0.9997, test: 0.9924
+generator losses | train: 7.265, test: nan | content: 1.265e-07, color: 71.85, texture: nan, tv: 3.072e-07 | psnr: 9.922, ms-ssim: 0.0157
+
+Epochs: 7/20000
+ Train Loss - Generator: 7.1386, Discriminator: 0.0859 | Elapsed: 317.3933
+Epochs: 8/20000
+ Train Loss - Generator: 7.0194, Discriminator: 0.0789 | Elapsed: 317.6971
+Start evaluating
+Epoch 7, iphone | discriminator accuracy | train: 0.9999, test: 0.9984
+generator losses | train: 7.019, test: nan | content: 1.216e-07, color: 71.47, texture: nan, tv: 2.533e-07 | psnr: 10.67, ms-ssim: 0.01609
+
+Epochs: 9/20000
+ Train Loss - Generator: 6.8604, Discriminator: 0.2420 | Elapsed: 317.2784
+Epochs: 10/20000
+ Train Loss - Generator: 6.8193, Discriminator: 0.1266 | Elapsed: 317.1880
+Start evaluating
+Epoch 9, iphone | discriminator accuracy | train: 0.9991, test: 0.9995
+generator losses | train: 6.819, test: nan | content: 1.172e-07, color: 71.67, texture: nan, tv: 2.062e-07 | psnr: 11.51, ms-ssim: 0.01647
+
+Epochs: 11/20000
+ Train Loss - Generator: 6.5075, Discriminator: 0.6597 | Elapsed: 317.3464
+Epochs: 12/20000
+ Train Loss - Generator: 6.6124, Discriminator: 0.1744 | Elapsed: 317.6175
+Start evaluating
+Epoch 11, iphone | discriminator accuracy | train: 0.9989, test: 1
+generator losses | train: 6.612, test: nan | content: 1.118e-07, color: 72.28, texture: nan, tv: 1.932e-07 | psnr: 12.05, ms-ssim: 0.01678
+
+Epochs: 13/20000
+ Train Loss - Generator: 6.5543, Discriminator: 0.0830 | Elapsed: 317.4594
+Epochs: 14/20000
+ Train Loss - Generator: 6.4644, Discriminator: 0.1662 | Elapsed: 317.1654
+Start evaluating
+Epoch 13, iphone | discriminator accuracy | train: 0.9989, test: 0.9989
+generator losses | train: 6.464, test: nan | content: 1.056e-07, color: 71.27, texture: nan, tv: 1.754e-07 | psnr: 12.41, ms-ssim: 0.01711
+
+Epochs: 15/20000
+ Train Loss - Generator: 6.4204, Discriminator: 0.0879 | Elapsed: 316.7312
+Epochs: 16/20000
+ Train Loss - Generator: 6.3126, Discriminator: 0.1120 | Elapsed: 316.5506
+Start evaluating
+Epoch 15, iphone | discriminator accuracy | train: 0.9995, test: 1
+generator losses | train: 6.313, test: nan | content: 9.997e-08, color: 69.06, texture: nan, tv: 1.614e-07 | psnr: 12.75, ms-ssim: 0.01727
+
+Epochs: 17/20000
+ Train Loss - Generator: 6.2254, Discriminator: 0.1402 | Elapsed: 317.5506
+Epochs: 18/20000
+ Train Loss - Generator: 6.2049, Discriminator: 0.0057 | Elapsed: 317.2759
+Start evaluating
+Epoch 17, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 6.205, test: nan | content: 9.304e-08, color: 69.56, texture: nan, tv: 1.432e-07 | psnr: 13.15, ms-ssim: 0.01739
+
+Epochs: 19/20000
+ Train Loss - Generator: 6.0924, Discriminator: 0.1613 | Elapsed: 316.6077
+Epochs: 20/20000
+ Train Loss - Generator: 6.0673, Discriminator: 0.0191 | Elapsed: 316.6709
+Start evaluating
+Epoch 19, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 6.067, test: nan | content: 9.02e-08, color: 70.72, texture: nan, tv: 1.334e-07 | psnr: 13.42, ms-ssim: 0.01729
+
+Epochs: 21/20000
+ Train Loss - Generator: 5.9971, Discriminator: 0.0397 | Elapsed: 316.6994
+Epochs: 22/20000
+ Train Loss - Generator: 5.9048, Discriminator: 0.0688 | Elapsed: 316.6955
+Start evaluating
+Epoch 21, iphone | discriminator accuracy | train: 0.9996, test: 1
+generator losses | train: 5.905, test: 7.227 | content: 8.517e-08, color: 72.28, texture: -0.001461, tv: 1.28e-07 | psnr: 13.64, ms-ssim: 0.01728
+
+Epochs: 23/20000
+ Train Loss - Generator: 5.8401, Discriminator: 0.0911 | Elapsed: 316.2413
+Epochs: 24/20000
+ Train Loss - Generator: 5.7924, Discriminator: 0.0436 | Elapsed: 316.4252
+Start evaluating
+Epoch 23, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 5.792, test: 7.389 | content: 8.523e-08, color: 73.89, texture: -0.0005488, tv: 1.293e-07 | psnr: 13.66, ms-ssim: 0.01726
+
+Epochs: 25/20000
+ Train Loss - Generator: 5.7290, Discriminator: 0.0543 | Elapsed: 315.9169
+Epochs: 26/20000
+ Train Loss - Generator: 5.6500, Discriminator: 0.0734 | Elapsed: 316.2516
+Start evaluating
+Epoch 25, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 5.65, test: 7.278 | content: 8.454e-08, color: 72.78, texture: -0.001911, tv: 1.231e-07 | psnr: 13.75, ms-ssim: 0.01699
+
+Epochs: 27/20000
+ Train Loss - Generator: 5.5888, Discriminator: 0.0620 | Elapsed: 316.1704
+Epochs: 28/20000
+ Train Loss - Generator: 5.5526, Discriminator: 0.0352 | Elapsed: 316.5465
+Start evaluating
+Epoch 27, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 5.553, test: nan | content: 8.446e-08, color: 72.35, texture: nan, tv: 1.235e-07 | psnr: 13.75, ms-ssim: 0.01691
+
+Epochs: 29/20000
+ Train Loss - Generator: 5.5197, Discriminator: 0.0132 | Elapsed: 316.7610
+Epochs: 30/20000
+ Train Loss - Generator: 5.4314, Discriminator: 0.1011 | Elapsed: 317.2592
+Start evaluating
+Epoch 29, iphone | discriminator accuracy | train: 0.9995, test: 1
+generator losses | train: 5.431, test: nan | content: 8.564e-08, color: 74.88, texture: nan, tv: 1.249e-07 | psnr: 13.7, ms-ssim: 0.01681
+
+Epochs: 31/20000
+ Train Loss - Generator: 5.4001, Discriminator: 0.0623 | Elapsed: 316.6430
+Epochs: 32/20000
+ Train Loss - Generator: 5.3451, Discriminator: 0.0536 | Elapsed: 317.7436
+Start evaluating
+Epoch 31, iphone | discriminator accuracy | train: 0.9997, test: 1
+generator losses | train: 5.345, test: nan | content: 8.648e-08, color: 75.73, texture: nan, tv: 1.203e-07 | psnr: 13.79, ms-ssim: 0.01673
+
+Epochs: 33/20000
+ Train Loss - Generator: 5.2657, Discriminator: 0.0359 | Elapsed: 317.5974
+Epochs: 34/20000
+ Train Loss - Generator: 5.2041, Discriminator: 0.0710 | Elapsed: 318.0565
+Start evaluating
+Epoch 33, iphone | discriminator accuracy | train: 0.9997, test: 0.9998
+generator losses | train: 5.204, test: nan | content: 9.339e-08, color: 78.55, texture: nan, tv: 1.356e-07 | psnr: 13.41, ms-ssim: 0.01648
+
+Epochs: 35/20000
+ Train Loss - Generator: 5.1952, Discriminator: 0.0270 | Elapsed: 318.9432
+Epochs: 36/20000
+ Train Loss - Generator: 5.1587, Discriminator: 0.0042 | Elapsed: 317.8805
+Start evaluating
+Epoch 35, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 5.159, test: nan | content: 9.279e-08, color: 78.17, texture: nan, tv: 1.244e-07 | psnr: 13.64, ms-ssim: 0.0164
+
+Epochs: 37/20000
+ Train Loss - Generator: 5.1048, Discriminator: 0.0673 | Elapsed: 316.4058
+Epochs: 38/20000
+ Train Loss - Generator: 5.0701, Discriminator: 0.0604 | Elapsed: 316.8004
+Start evaluating
+Epoch 37, iphone | discriminator accuracy | train: 0.9997, test: 0.9995
+generator losses | train: 5.07, test: nan | content: 9.137e-08, color: 76.76, texture: nan, tv: 1.196e-07 | psnr: 13.77, ms-ssim: 0.0163
+
+Epochs: 39/20000
+ Train Loss - Generator: 5.0602, Discriminator: 0.0280 | Elapsed: 316.9424
+Epochs: 40/20000
+ Train Loss - Generator: 5.0208, Discriminator: 0.0053 | Elapsed: 316.8144
+Start evaluating
+Epoch 39, iphone | discriminator accuracy | train: 1, test: 0.9998
+generator losses | train: 5.021, test: nan | content: 9.217e-08, color: 80.34, texture: nan, tv: 1.143e-07 | psnr: 13.85, ms-ssim: 0.01631
+
+Epochs: 41/20000
+ Train Loss - Generator: 4.9731, Discriminator: 0.0091 | Elapsed: 316.2719
+Epochs: 42/20000
+ Train Loss - Generator: 4.8893, Discriminator: 0.0773 | Elapsed: 316.3088
+Start evaluating
+Epoch 41, iphone | discriminator accuracy | train: 0.9996, test: 0.9995
+generator losses | train: 4.889, test: nan | content: 9.262e-08, color: 78.35, texture: nan, tv: 1.062e-07 | psnr: 14.01, ms-ssim: 0.0164
+
+Epochs: 43/20000
+ Train Loss - Generator: 4.8163, Discriminator: 0.0356 | Elapsed: 316.4542
+Epochs: 44/20000
+ Train Loss - Generator: 4.7352, Discriminator: 0.0470 | Elapsed: 316.2394
+Start evaluating
+Epoch 43, iphone | discriminator accuracy | train: 0.9998, test: 0.9991
+generator losses | train: 4.735, test: nan | content: 9.549e-08, color: 79.17, texture: nan, tv: 1.027e-07 | psnr: 14.01, ms-ssim: 0.016
+
+Epochs: 45/20000
+ Train Loss - Generator: 4.6942, Discriminator: 0.0309 | Elapsed: 316.9850
+Epochs: 46/20000
+ Train Loss - Generator: 4.6293, Discriminator: 0.0547 | Elapsed: 316.0421
+Start evaluating
+Epoch 45, iphone | discriminator accuracy | train: 0.9998, test: 0.9995
+generator losses | train: 4.629, test: nan | content: 9.716e-08, color: 80.27, texture: nan, tv: 9.957e-08 | psnr: 14.04, ms-ssim: 0.01598
+
+Epochs: 47/20000
+ Train Loss - Generator: 4.5860, Discriminator: 0.0418 | Elapsed: 315.7572
+Epochs: 48/20000
+ Train Loss - Generator: 4.5626, Discriminator: 0.0090 | Elapsed: 316.7336
+Start evaluating
+Epoch 47, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 4.563, test: nan | content: 1.089e-07, color: 82.01, texture: nan, tv: 1.045e-07 | psnr: 13.85, ms-ssim: 0.01568
+
+Epochs: 49/20000
+ Train Loss - Generator: 4.5813, Discriminator: 0.0441 | Elapsed: 316.9184
+Epochs: 50/20000
+ Train Loss - Generator: 4.6401, Discriminator: 0.0256 | Elapsed: 316.8660
+Start evaluating
+Epoch 49, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 4.64, test: nan | content: 1.086e-07, color: 79.71, texture: nan, tv: 1.055e-07 | psnr: 13.83, ms-ssim: 0.01572
+
+Epochs: 51/20000
+ Train Loss - Generator: 4.6513, Discriminator: 0.0716 | Elapsed: 316.7524
+Epochs: 52/20000
+ Train Loss - Generator: 4.5285, Discriminator: 0.0057 | Elapsed: 317.1637
+Start evaluating
+Epoch 51, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 4.529, test: nan | content: 1.093e-07, color: 82.77, texture: nan, tv: 1.104e-07 | psnr: 13.68, ms-ssim: 0.01558
+
+Epochs: 53/20000
+ Train Loss - Generator: 4.3310, Discriminator: 0.0332 | Elapsed: 316.4058
+Epochs: 54/20000
+ Train Loss - Generator: 4.2917, Discriminator: 0.0195 | Elapsed: 318.0482
+Start evaluating
+Epoch 53, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 4.292, test: nan | content: 1.14e-07, color: 88.6, texture: nan, tv: 1.063e-07 | psnr: 13.73, ms-ssim: 0.01531
+
+Epochs: 55/20000
+ Train Loss - Generator: 4.2295, Discriminator: 0.0755 | Elapsed: 316.8093
+Epochs: 56/20000
+ Train Loss - Generator: 4.2109, Discriminator: 0.0631 | Elapsed: 316.8461
+Start evaluating
+Epoch 55, iphone | discriminator accuracy | train: 0.9996, test: 1
+generator losses | train: 4.211, test: nan | content: 1.064e-07, color: 80.47, texture: nan, tv: 9.452e-08 | psnr: 14.12, ms-ssim: 0.01566
+
+Epochs: 57/20000
+ Train Loss - Generator: 4.2191, Discriminator: 0.0230 | Elapsed: 316.1324
+Epochs: 58/20000
+ Train Loss - Generator: 4.2253, Discriminator: 0.0211 | Elapsed: 316.9166
+Start evaluating
+Epoch 57, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 4.225, test: nan | content: 1.068e-07, color: 78.44, texture: nan, tv: 9.251e-08 | psnr: 14.16, ms-ssim: 0.01568
+
+Epochs: 59/20000
+ Train Loss - Generator: 4.1310, Discriminator: 0.0422 | Elapsed: 317.0617
+Epochs: 60/20000
+ Train Loss - Generator: 4.1471, Discriminator: 0.0535 | Elapsed: 316.9388
+Start evaluating
+Epoch 59, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 4.147, test: nan | content: 1.091e-07, color: 81.55, texture: nan, tv: 9.461e-08 | psnr: 14.09, ms-ssim: 0.0158
+
+Epochs: 61/20000
+ Train Loss - Generator: 4.1686, Discriminator: 0.0157 | Elapsed: 317.1460
+Epochs: 62/20000
+ Train Loss - Generator: 4.2736, Discriminator: 0.0080 | Elapsed: 316.1860
+Start evaluating
+Epoch 61, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 4.274, test: nan | content: 1.081e-07, color: 83.78, texture: nan, tv: 9.815e-08 | psnr: 13.96, ms-ssim: 0.0154
+
+Epochs: 63/20000
+ Train Loss - Generator: 4.2196, Discriminator: 0.0003 | Elapsed: 316.3789
+Epochs: 64/20000
+ Train Loss - Generator: 4.0586, Discriminator: 0.0042 | Elapsed: 316.6113
+Start evaluating
+Epoch 63, iphone | discriminator accuracy | train: 0.9999, test: 0.9989
+generator losses | train: 4.059, test: nan | content: 1.109e-07, color: 86.79, texture: nan, tv: 9.701e-08 | psnr: 13.9, ms-ssim: 0.01513
+
+Epochs: 65/20000
+ Train Loss - Generator: 3.8607, Discriminator: 0.1087 | Elapsed: 316.5741
+Epochs: 66/20000
+ Train Loss - Generator: 3.8355, Discriminator: 0.0371 | Elapsed: 317.4893
+Start evaluating
+Epoch 65, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 3.835, test: nan | content: 1.113e-07, color: 90.78, texture: nan, tv: 8.941e-08 | psnr: 14, ms-ssim: 0.0152
+
+Epochs: 67/20000
+ Train Loss - Generator: 3.7283, Discriminator: 0.0491 | Elapsed: 316.4296
+Epochs: 68/20000
+ Train Loss - Generator: 3.7187, Discriminator: 0.0604 | Elapsed: 317.0182
+Start evaluating
+Epoch 67, iphone | discriminator accuracy | train: 0.9997, test: 1
+generator losses | train: 3.719, test: nan | content: 1.13e-07, color: 89.93, texture: nan, tv: 8.682e-08 | psnr: 14.07, ms-ssim: 0.01513
+
+Epochs: 69/20000
+ Train Loss - Generator: 3.7832, Discriminator: 0.0160 | Elapsed: 317.4256
+Epochs: 70/20000
+ Train Loss - Generator: 3.7601, Discriminator: 0.0315 | Elapsed: 318.2191
+Start evaluating
+Epoch 69, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 3.76, test: nan | content: 1.079e-07, color: 89.55, texture: nan, tv: 8.797e-08 | psnr: 14.16, ms-ssim: 0.01592
+
+Epochs: 71/20000
+ Train Loss - Generator: 3.8854, Discriminator: 0.0190 | Elapsed: 318.4351
+Epochs: 72/20000
+ Train Loss - Generator: 3.7739, Discriminator: 0.0207 | Elapsed: 318.9752
+Start evaluating
+Epoch 71, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 3.774, test: nan | content: 1.08e-07, color: 84.23, texture: nan, tv: 8.805e-08 | psnr: 14.16, ms-ssim: 0.01547
+
+Epochs: 73/20000
+ Train Loss - Generator: 3.9704, Discriminator: 0.1545 | Elapsed: 318.3645
+Epochs: 74/20000
+ Train Loss - Generator: 4.3360, Discriminator: 0.0014 | Elapsed: 318.9107
+Start evaluating
+Epoch 73, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 4.336, test: nan | content: 1.089e-07, color: 91.65, texture: nan, tv: 9.546e-08 | psnr: 13.94, ms-ssim: 0.01584
+
+Epochs: 75/20000
+ Train Loss - Generator: 4.0206, Discriminator: 0.0004 | Elapsed: 317.9679
+Epochs: 76/20000
+ Train Loss - Generator: 3.6571, Discriminator: 0.0292 | Elapsed: 317.7519
+Start evaluating
+Epoch 75, iphone | discriminator accuracy | train: 0.9999, test: 0.9998
+generator losses | train: 3.657, test: nan | content: 1.133e-07, color: 88.09, texture: nan, tv: 1.01e-07 | psnr: 13.77, ms-ssim: 0.01573
+
+Epochs: 77/20000
+ Train Loss - Generator: 3.3710, Discriminator: 0.0574 | Elapsed: 318.3690
+Epochs: 78/20000
+ Train Loss - Generator: 3.3805, Discriminator: 0.0210 | Elapsed: 318.5704
+Start evaluating
+Epoch 77, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 3.38, test: nan | content: 1.112e-07, color: 87.5, texture: nan, tv: 9.124e-08 | psnr: 14.07, ms-ssim: 0.01531
+
+Epochs: 79/20000
+ Train Loss - Generator: 3.2801, Discriminator: 0.0587 | Elapsed: 318.8199
+Epochs: 80/20000
+ Train Loss - Generator: 3.3113, Discriminator: 0.0306 | Elapsed: 318.9997
+Start evaluating
+Epoch 79, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 3.311, test: nan | content: 1.097e-07, color: 91.46, texture: nan, tv: 8.29e-08 | psnr: 14.13, ms-ssim: 0.01512
+
+Epochs: 81/20000
+ Train Loss - Generator: 3.2846, Discriminator: 0.0678 | Elapsed: 317.9083
+Epochs: 82/20000
+ Train Loss - Generator: 3.4670, Discriminator: 0.0349 | Elapsed: 318.8025
+Start evaluating
+Epoch 81, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 3.467, test: nan | content: 1.081e-07, color: 84.84, texture: nan, tv: 7.214e-08 | psnr: 14.48, ms-ssim: 0.01533
+
+Epochs: 83/20000
+ Train Loss - Generator: 3.6254, Discriminator: 0.0213 | Elapsed: 318.3292
+Epochs: 84/20000
+ Train Loss - Generator: 3.5222, Discriminator: 0.0056 | Elapsed: 318.4054
+Start evaluating
+Epoch 83, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 3.522, test: nan | content: 1.083e-07, color: 88.6, texture: nan, tv: 7.653e-08 | psnr: 14.4, ms-ssim: 0.01557
+
+Epochs: 85/20000
+ Train Loss - Generator: 3.5359, Discriminator: 0.0354 | Elapsed: 318.3668
+Epochs: 86/20000
+ Train Loss - Generator: 3.4934, Discriminator: 0.0150 | Elapsed: 318.2899
+Start evaluating
+Epoch 85, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 3.493, test: nan | content: 1.073e-07, color: 94.11, texture: nan, tv: 7.105e-08 | psnr: 14.4, ms-ssim: 0.01585
+
+Epochs: 87/20000
+ Train Loss - Generator: 3.4458, Discriminator: 0.0700 | Elapsed: 318.6864
+Epochs: 88/20000
+ Train Loss - Generator: 3.5117, Discriminator: 0.0518 | Elapsed: 318.6148
+Start evaluating
+Epoch 87, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 3.512, test: nan | content: 1.013e-07, color: 87.65, texture: nan, tv: 6.739e-08 | psnr: 14.66, ms-ssim: 0.01631
+
+Epochs: 89/20000
+ Train Loss - Generator: 3.6674, Discriminator: 0.0049 | Elapsed: 318.5799
+Epochs: 90/20000
+ Train Loss - Generator: 3.5906, Discriminator: 0.0018 | Elapsed: 318.4690
+Start evaluating
+Epoch 89, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 3.591, test: nan | content: 9.748e-08, color: 78.99, texture: nan, tv: 6.764e-08 | psnr: 14.8, ms-ssim: 0.01604
+
+Epochs: 91/20000
+ Train Loss - Generator: 3.3379, Discriminator: 0.0695 | Elapsed: 317.9958
+Epochs: 92/20000
+ Train Loss - Generator: 3.1467, Discriminator: 0.0451 | Elapsed: 317.9896
+Start evaluating
+Epoch 91, iphone | discriminator accuracy | train: 0.9997, test: 0.9998
+generator losses | train: 3.147, test: nan | content: 9.967e-08, color: 83.81, texture: nan, tv: 6.321e-08 | psnr: 14.9, ms-ssim: 0.01569
+
+Epochs: 93/20000
+ Train Loss - Generator: 2.9329, Discriminator: 0.1139 | Elapsed: 317.9025
+Epochs: 94/20000
+ Train Loss - Generator: 2.9253, Discriminator: 0.0145 | Elapsed: 318.4811
+Start evaluating
+Epoch 93, iphone | discriminator accuracy | train: 0.9999, test: 0.9998
+generator losses | train: 2.925, test: nan | content: 9.761e-08, color: 84.57, texture: nan, tv: 5.408e-08 | psnr: 15.17, ms-ssim: 0.01567
+
+Epochs: 95/20000
+ Train Loss - Generator: 2.8895, Discriminator: 0.0711 | Elapsed: 318.2571
+Epochs: 96/20000
+ Train Loss - Generator: 2.8961, Discriminator: 0.0361 | Elapsed: 318.1640
+Start evaluating
+Epoch 95, iphone | discriminator accuracy | train: 0.9996, test: 0.9991
+generator losses | train: 2.896, test: nan | content: 9.856e-08, color: 86.69, texture: nan, tv: 6.177e-08 | psnr: 14.95, ms-ssim: 0.01565
+
+Epochs: 97/20000
+ Train Loss - Generator: 2.9461, Discriminator: 0.0237 | Elapsed: 317.5006
+Epochs: 98/20000
+ Train Loss - Generator: 3.0657, Discriminator: 0.0217 | Elapsed: 317.8859
+Start evaluating
+Epoch 97, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 3.066, test: nan | content: 9.516e-08, color: 81.87, texture: nan, tv: 5.301e-08 | psnr: 15.31, ms-ssim: 0.01605
+
+Epochs: 99/20000
+ Train Loss - Generator: 2.9480, Discriminator: 0.0353 | Elapsed: 317.9876
+Epochs: 100/20000
+ Train Loss - Generator: 2.9288, Discriminator: 0.0525 | Elapsed: 318.3118
+Start evaluating
+Epoch 99, iphone | discriminator accuracy | train: 0.9998, test: 0.9993
+generator losses | train: 2.929, test: nan | content: 9.847e-08, color: 82.79, texture: nan, tv: 5.813e-08 | psnr: 15.1, ms-ssim: 0.01586
+
+Epochs: 101/20000
+ Train Loss - Generator: 3.0439, Discriminator: 0.1009 | Elapsed: 318.5782
+Epochs: 102/20000
+ Train Loss - Generator: 3.5868, Discriminator: 0.0263 | Elapsed: 318.1751
+Start evaluating
+Epoch 101, iphone | discriminator accuracy | train: 0.9998, test: 0.9944
+generator losses | train: 3.587, test: nan | content: 1.004e-07, color: 84.54, texture: nan, tv: 5.831e-08 | psnr: 15.02, ms-ssim: 0.01593
+
+Epochs: 103/20000
+ Train Loss - Generator: 3.7444, Discriminator: 0.0503 | Elapsed: 318.7211
+Epochs: 104/20000
+ Train Loss - Generator: 3.4520, Discriminator: 0.0401 | Elapsed: 318.5309
+Start evaluating
+Epoch 103, iphone | discriminator accuracy | train: 0.9998, test: 0.9998
+generator losses | train: 3.452, test: nan | content: 1.013e-07, color: 86.07, texture: nan, tv: 5.419e-08 | psnr: 15.27, ms-ssim: 0.01643
+
+Epochs: 105/20000
+ Train Loss - Generator: 3.0122, Discriminator: 0.0238 | Elapsed: 318.5442
+Epochs: 106/20000
+ Train Loss - Generator: 2.7586, Discriminator: 0.0031 | Elapsed: 318.4422
+Start evaluating
+Epoch 105, iphone | discriminator accuracy | train: 1, test: 0.9995
+generator losses | train: 2.759, test: nan | content: 1.058e-07, color: 86.95, texture: nan, tv: 6.191e-08 | psnr: 14.96, ms-ssim: 0.01602
+
+Epochs: 107/20000
+ Train Loss - Generator: 2.6537, Discriminator: 0.0592 | Elapsed: 317.5590
+Epochs: 108/20000
+ Train Loss - Generator: 2.6780, Discriminator: 0.0418 | Elapsed: 318.1879
+Start evaluating
+Epoch 107, iphone | discriminator accuracy | train: 0.9998, test: 0.9998
+generator losses | train: 2.678, test: nan | content: 1.022e-07, color: 89.93, texture: nan, tv: 5.703e-08 | psnr: 15.15, ms-ssim: 0.01605
+
+Epochs: 109/20000
+ Train Loss - Generator: 2.6311, Discriminator: 0.0441 | Elapsed: 318.3245
+Epochs: 110/20000
+ Train Loss - Generator: 2.6004, Discriminator: 0.0428 | Elapsed: 317.8639
+Start evaluating
+Epoch 109, iphone | discriminator accuracy | train: 0.9998, test: 0.9995
+generator losses | train: 2.6, test: nan | content: 9.768e-08, color: 87.02, texture: nan, tv: 5.897e-08 | psnr: 15.11, ms-ssim: 0.01617
+
+Epochs: 111/20000
+ Train Loss - Generator: 2.6248, Discriminator: 0.0222 | Elapsed: 317.7421
+Epochs: 112/20000
+ Train Loss - Generator: 2.6012, Discriminator: 0.0535 | Elapsed: 317.4593
+Start evaluating
+Epoch 111, iphone | discriminator accuracy | train: 0.9997, test: 1
+generator losses | train: 2.601, test: nan | content: 9.861e-08, color: 85.97, texture: nan, tv: 6.049e-08 | psnr: 15.08, ms-ssim: 0.01619
+
+Epochs: 113/20000
+ Train Loss - Generator: 2.7687, Discriminator: 0.0823 | Elapsed: 318.3561
+Epochs: 114/20000
+ Train Loss - Generator: 3.0191, Discriminator: 0.0335 | Elapsed: 317.5565
+Start evaluating
+Epoch 113, iphone | discriminator accuracy | train: 0.9998, test: 0.9993
+generator losses | train: 3.019, test: nan | content: 9.672e-08, color: 83.51, texture: nan, tv: 5.351e-08 | psnr: 15.39, ms-ssim: 0.01657
+
+Epochs: 115/20000
+ Train Loss - Generator: 3.2133, Discriminator: 0.0572 | Elapsed: 317.9374
+Epochs: 116/20000
+ Train Loss - Generator: 3.3647, Discriminator: 0.0387 | Elapsed: 318.5477
+Start evaluating
+Epoch 115, iphone | discriminator accuracy | train: 0.9997, test: 0.9998
+generator losses | train: 3.365, test: nan | content: 9.724e-08, color: 78.17, texture: nan, tv: 5.845e-08 | psnr: 15.26, ms-ssim: 0.01659
+
+Epochs: 117/20000
+ Train Loss - Generator: 3.1432, Discriminator: 0.0428 | Elapsed: 317.8434
+Epochs: 118/20000
+ Train Loss - Generator: 2.8977, Discriminator: 0.0162 | Elapsed: 318.2937
+Start evaluating
+Epoch 117, iphone | discriminator accuracy | train: 0.9999, test: 0.9993
+generator losses | train: 2.898, test: nan | content: 9.627e-08, color: 79.92, texture: nan, tv: 5.599e-08 | psnr: 15.3, ms-ssim: 0.01665
+
+Epochs: 119/20000
+ Train Loss - Generator: 2.6429, Discriminator: 0.0525 | Elapsed: 317.6272
+Epochs: 120/20000
+ Train Loss - Generator: 2.5587, Discriminator: 0.0129 | Elapsed: 317.7781
+Start evaluating
+Epoch 119, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 2.559, test: nan | content: 9.658e-08, color: 81.48, texture: nan, tv: 5.334e-08 | psnr: 15.4, ms-ssim: 0.01651
+
+Epochs: 121/20000
+ Train Loss - Generator: 2.4284, Discriminator: 0.0777 | Elapsed: 317.5151
+Epochs: 122/20000
+ Train Loss - Generator: 2.4466, Discriminator: 0.0626 | Elapsed: 318.1413
+Start evaluating
+Epoch 121, iphone | discriminator accuracy | train: 0.9995, test: 0.9993
+generator losses | train: 2.447, test: nan | content: 9.723e-08, color: 88.34, texture: nan, tv: 5.415e-08 | psnr: 15.24, ms-ssim: 0.01629
+
+Epochs: 123/20000
+ Train Loss - Generator: 2.3741, Discriminator: 0.0719 | Elapsed: 318.7492
+Epochs: 124/20000
+ Train Loss - Generator: 2.3512, Discriminator: 0.0232 | Elapsed: 318.2806
+Start evaluating
+Epoch 123, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 2.351, test: nan | content: 9.409e-08, color: 91.14, texture: nan, tv: 5.11e-08 | psnr: 15.4, ms-ssim: 0.01664
+
+Epochs: 125/20000
+ Train Loss - Generator: 2.4346, Discriminator: 0.0456 | Elapsed: 318.2343
+Epochs: 126/20000
+ Train Loss - Generator: 2.4219, Discriminator: 0.0405 | Elapsed: 318.1895
+Start evaluating
+Epoch 125, iphone | discriminator accuracy | train: 0.9998, test: 0.9961
+generator losses | train: 2.422, test: nan | content: 1.034e-07, color: 100.7, texture: nan, tv: 5.732e-08 | psnr: 15, ms-ssim: 0.01631
+
+Epochs: 127/20000
+ Train Loss - Generator: 2.4831, Discriminator: 0.1336 | Elapsed: 318.1158
+Epochs: 128/20000
+ Train Loss - Generator: 2.8164, Discriminator: 0.0519 | Elapsed: 318.5274
+Start evaluating
+Epoch 127, iphone | discriminator accuracy | train: 0.9996, test: 0.9993
+generator losses | train: 2.816, test: nan | content: 9.863e-08, color: 82.66, texture: nan, tv: 5.197e-08 | psnr: 15.45, ms-ssim: 0.01689
+
+Epochs: 129/20000
+ Train Loss - Generator: 2.7490, Discriminator: 0.0717 | Elapsed: 318.4427
+Epochs: 130/20000
+ Train Loss - Generator: 2.8431, Discriminator: 0.0353 | Elapsed: 317.0605
+Start evaluating
+Epoch 129, iphone | discriminator accuracy | train: 0.9998, test: 0.9993
+generator losses | train: 2.843, test: nan | content: 9.66e-08, color: 87.33, texture: nan, tv: 5.418e-08 | psnr: 15.26, ms-ssim: 0.01678
+
+Epochs: 131/20000
+ Train Loss - Generator: 3.0363, Discriminator: 0.0489 | Elapsed: 318.3294
+Epochs: 132/20000
+ Train Loss - Generator: 3.2716, Discriminator: 0.0416 | Elapsed: 318.4098
+Start evaluating
+Epoch 131, iphone | discriminator accuracy | train: 0.9998, test: 0.9995
+generator losses | train: 3.272, test: nan | content: 9.992e-08, color: 85.79, texture: nan, tv: 5.217e-08 | psnr: 15.43, ms-ssim: 0.01692
+
+Epochs: 133/20000
+ Train Loss - Generator: 3.0974, Discriminator: 0.0456 | Elapsed: 318.3408
+Epochs: 134/20000
+ Train Loss - Generator: 2.7998, Discriminator: 0.0651 | Elapsed: 318.0118
+Start evaluating
+Epoch 133, iphone | discriminator accuracy | train: 0.9995, test: 0.9995
+generator losses | train: 2.8, test: nan | content: 9.845e-08, color: 84.9, texture: nan, tv: 5.484e-08 | psnr: 15.33, ms-ssim: 0.01671
+
+Epochs: 135/20000
+ Train Loss - Generator: 2.5478, Discriminator: 0.0366 | Elapsed: 318.3702
+Epochs: 136/20000
+ Train Loss - Generator: 2.4036, Discriminator: 0.0146 | Elapsed: 317.8518
+Start evaluating
+Epoch 135, iphone | discriminator accuracy | train: 0.9999, test: 0.9998
+generator losses | train: 2.404, test: nan | content: 1.009e-07, color: 86.86, texture: nan, tv: 5.417e-08 | psnr: 15.32, ms-ssim: 0.01667
+
+Epochs: 137/20000
+ Train Loss - Generator: 2.2465, Discriminator: 0.0029 | Elapsed: 317.8777
+Epochs: 138/20000
+ Train Loss - Generator: 2.2078, Discriminator: 0.0253 | Elapsed: 317.7760
+Start evaluating
+Epoch 137, iphone | discriminator accuracy | train: 0.9998, test: 0.9946
+generator losses | train: 2.208, test: nan | content: 1.03e-07, color: 86.76, texture: nan, tv: 5.444e-08 | psnr: 15.35, ms-ssim: 0.01684
+
+Epochs: 139/20000
+ Train Loss - Generator: 2.1336, Discriminator: 0.1011 | Elapsed: 318.1991
+Epochs: 140/20000
+ Train Loss - Generator: 2.1396, Discriminator: 0.0315 | Elapsed: 318.2736
+Start evaluating
+Epoch 139, iphone | discriminator accuracy | train: 0.9999, test: 0.9991
+generator losses | train: 2.14, test: nan | content: 1.038e-07, color: 80.69, texture: nan, tv: 5.386e-08 | psnr: 15.35, ms-ssim: 0.01682
+
+Epochs: 141/20000
+ Train Loss - Generator: 2.1830, Discriminator: 0.0573 | Elapsed: 318.1064
+Epochs: 142/20000
+ Train Loss - Generator: 2.3041, Discriminator: 0.0431 | Elapsed: 317.8566
+Start evaluating
+Epoch 141, iphone | discriminator accuracy | train: 0.9998, test: 0.9991
+generator losses | train: 2.304, test: nan | content: 9.743e-08, color: 84.87, texture: nan, tv: 4.999e-08 | psnr: 15.46, ms-ssim: 0.01671
+
+Epochs: 143/20000
+ Train Loss - Generator: 2.4273, Discriminator: 0.0042 | Elapsed: 317.5751
+Epochs: 144/20000
+ Train Loss - Generator: 2.2951, Discriminator: 0.0245 | Elapsed: 318.0708
+Start evaluating
+Epoch 143, iphone | discriminator accuracy | train: 0.9999, test: 0.9995
+generator losses | train: 2.295, test: nan | content: 1.05e-07, color: 84.45, texture: nan, tv: 5.079e-08 | psnr: 15.43, ms-ssim: 0.01692
+
+Epochs: 145/20000
+ Train Loss - Generator: 2.2610, Discriminator: 0.0945 | Elapsed: 318.3491
+Epochs: 146/20000
+ Train Loss - Generator: 2.3053, Discriminator: 0.0233 | Elapsed: 318.4705
+Start evaluating
+Epoch 145, iphone | discriminator accuracy | train: 0.9999, test: 0.9998
+generator losses | train: 2.305, test: nan | content: 9.693e-08, color: 88.7, texture: nan, tv: 4.689e-08 | psnr: 15.6, ms-ssim: 0.01704
+
+Epochs: 147/20000
+ Train Loss - Generator: 2.5087, Discriminator: 0.0433 | Elapsed: 317.5842
+Epochs: 148/20000
+ Train Loss - Generator: 2.9091, Discriminator: 0.0746 | Elapsed: 317.2116
+Start evaluating
+Epoch 147, iphone | discriminator accuracy | train: 0.9995, test: 0.9998
+generator losses | train: 2.909, test: nan | content: 8.333e-08, color: 75.88, texture: nan, tv: 4.202e-08 | psnr: 16, ms-ssim: 0.01739
+
+Epochs: 149/20000
+ Train Loss - Generator: 3.4231, Discriminator: 0.0177 | Elapsed: 317.6635
+Epochs: 150/20000
+ Train Loss - Generator: 3.0300, Discriminator: 0.0152 | Elapsed: 318.2348
+Start evaluating
+Epoch 149, iphone | discriminator accuracy | train: 0.9999, test: 0.9989
+generator losses | train: 3.03, test: nan | content: 8.514e-08, color: 84.12, texture: nan, tv: 4.53e-08 | psnr: 15.69, ms-ssim: 0.01722
+

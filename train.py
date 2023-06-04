@@ -1,5 +1,6 @@
 import sys
 import time
+import os
 
 import cv2
 import imageio
@@ -44,6 +45,28 @@ def run(
     # defining system architecture
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    # Output folder
+    output_path = 'models'
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    folders = os.listdir(output_path)
+    new_id = 0
+    if len(folders) > 0:
+        for folder in folders:
+            if not folder.startswith('exp_'):
+                continue
+            new_id = max(new_id, int(folder.split('exp_')[-1]))
+        new_id += 1
+    output_path = os.path.join(output_path, f'exp_{new_id}')
+    os.makedirs(output_path)
+    weights_path = os.path.join(output_path, 'weights')
+    os.mkdir(weights_path)
+    visualize_path=os.path.join(output_path, 'visualize')
+    os.mkdir(visualize_path)
+    output_path=output_path+'/'
+    visualize_path=visualize_path+'/'
+    weights_path=weights_path+'/'
+
     # Set random seed
     torch.manual_seed(0)
 
@@ -82,9 +105,9 @@ def run(
 
     # Training loop
     print("Start training")
-    total_run=time.time()
+    total_run = time.time()
 
-    # Tracking loss 
+    # Tracking loss
     # Training
     plot_train_loss_gen = []
     plot_train_loss_discrim = []
@@ -98,19 +121,23 @@ def run(
     plot_test_color = []
     plot_test_texture = []
     plot_test_tv = []
-    plot_test_acc_discrim=[]
+    plot_test_acc_discrim = []
+    
+    # Save log
+    # To Overwrite
+    logs = open(output_path + phone + ".txt", "w+")
+    logs.close()
 
     for i in range(epochs):
         train_loss_gen = 0.0
         train_loss_discrim = 0.0
-        train_acc_discrim=0.0
+        train_acc_discrim = 0.0
         generator.train()
         discriminator.train()
         train_progress_bar = tqdm(enumerate(train_dl), total=len(train_dl))
         start_time = time.time()
-        
 
-        for _,batch in train_progress_bar:
+        for _, batch in train_progress_bar:
             phone_images, dslr_images = batch["phone_image"].float().to(device), batch[
                 "dslr_image"
             ].float().to(device)
@@ -122,12 +149,12 @@ def run(
             phone_images = (
                 phone_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
                 .permute(0, 3, 1, 2)
-                .clone()
+                
             )  # (batch,3,100,100)
             dslr_images = (
                 dslr_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
                 .permute(0, 3, 1, 2)
-                .clone()
+                
             )  # (batch,3,100,100)
 
             # GENERATOR
@@ -138,15 +165,14 @@ def run(
 
             ## Transform both dslr and enhanced images to grayscale
             # Convert enhanced RGB images to grayscale
-            enhanced_gray = F.rgb_to_grayscale(enhanced.clone())
+            enhanced_gray = F.rgb_to_grayscale(enhanced)
 
             # Convert DSLR RGB images to grayscale
-            dslr_gray = F.rgb_to_grayscale(dslr_images.clone())
+            dslr_gray = F.rgb_to_grayscale(dslr_images)
 
             # Reshape the grayscale images
-            enhanced_gray = enhanced_gray.view(-1, PATCH_HEIGHT * PATCH_WIDTH).clone()
-            dslr_gray = dslr_gray.view(-1, PATCH_HEIGHT * PATCH_WIDTH).clone()
-
+            enhanced_gray = enhanced_gray.view(-1, PATCH_HEIGHT * PATCH_WIDTH)
+            dslr_gray = dslr_gray.view(-1, PATCH_HEIGHT * PATCH_WIDTH)
             # Randomly swap for discriminator
             chosen = (
                 torch.randint(0, 2, (current_batch_size,), dtype=torch.float32)
@@ -163,7 +189,7 @@ def run(
             # 1) Texture (adversarial) loss
 
             discrim_target = torch.cat([chosen, 1 - chosen], dim=1)
-            loss_discrim = -torch.sum(discrim_target * torch.log(discrim_predictions))
+            loss_discrim = -torch.sum(discrim_target * torch.log(torch.clamp(discrim_predictions, 1e-10, 1.0)))
             loss_texture = -loss_discrim.detach()
 
             correct_predictions = torch.eq(
@@ -220,33 +246,34 @@ def run(
 
             # C. BACKWARD
 
-            # Update discriminator
-            disc_optimizer.zero_grad()
-            loss_discrim.backward()
-            disc_optimizer.step()
-
             # Update generator
             gen_optimizer.zero_grad()
             loss_generator.backward()
             gen_optimizer.step()
 
+            # Update discriminator
+            disc_optimizer.zero_grad()
+            loss_discrim.backward()
+            disc_optimizer.step()
+
+            
+
             # Accumulate losses and accuracy
             train_loss_gen += loss_generator.item()
             train_loss_discrim += loss_discrim.item()
-            train_acc_discrim+=discrim_accuracy.item()
-            train_progress_bar.set_description(f"Epochs: {i+1}/{epochs}\n Train Loss - Generator: {train_loss_gen:.4f}, Discriminator: {train_loss_discrim:.4f} | Elapsed: {time.time() - start_time:.4f}")
-
-            
+            train_acc_discrim += discrim_accuracy.item()
+            # train_progress_bar.set_description(
+            #     f"Epochs: {i+1}/{epochs}\n Train Loss - Generator: {train_loss_gen:.4f}, Discriminator: {train_loss_discrim:.4f} | Elapsed: {time.time() - start_time:.4f}"
+            # )
 
         train_loss_gen /= len(train_dl)
         train_loss_discrim /= len(train_dl)
         train_acc_discrim /= len(train_dl)
+        print(f"Epochs: {i+1}/{epochs}\n Train Loss - Generator: {train_loss_gen:.4f}, Discriminator: {train_loss_discrim:.4f} | Elapsed: {time.time() - start_time:.4f}")
 
         plot_train_loss_gen.append(train_loss_gen)
         plot_train_loss_discrim.append(train_loss_discrim)
         plot_train_acc_discrim.append(train_acc_discrim)
-
-
 
         # Evaluate on test dataset
         if (i + 1) % eval_step == 0:
@@ -260,11 +287,11 @@ def run(
             test_color = 0.0
             test_texture = 0.0
             test_tv = 0.0
-            test_acc_discrim=0.0
-            test_loss_discrim=0.0
-            test_progress_bar=tqdm(enumerate(test_dl), total=len(test_dl))
+            test_acc_discrim = 0.0
+            test_loss_discrim = 0.0
+            test_progress_bar = tqdm(enumerate(test_dl), total=len(test_dl))
 
-            for _,batch in test_progress_bar:
+            for _, batch in test_progress_bar:
                 with torch.no_grad():
                     eval_phone_images, eval_dslr_images = batch[
                         "phone_image"
@@ -277,12 +304,12 @@ def run(
                     eval_phone_images = (
                         eval_phone_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
                         .permute(0, 3, 1, 2)
-                        .clone()
+                        
                     )  # (batch,3,100,100)
                     eval_dslr_images = (
                         eval_dslr_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
                         .permute(0, 3, 1, 2)
-                        .clone()
+                        
                     )  # (batch,3,100,100)
 
                     # GENERATOR
@@ -293,18 +320,18 @@ def run(
 
                     ## Transform both dslr and enhanced images to grayscale
                     # Convert enhanced RGB images to grayscale
-                    eval_enhanced_gray = F.rgb_to_grayscale(eval_enhanced.clone())
+                    eval_enhanced_gray = F.rgb_to_grayscale(eval_enhanced)
 
                     # Convert DSLR RGB images to grayscale
-                    eval_dslr_gray = F.rgb_to_grayscale(eval_dslr_images.clone())
+                    eval_dslr_gray = F.rgb_to_grayscale(eval_dslr_images)
 
                     # Reshape the grayscale images
                     eval_enhanced_gray = eval_enhanced_gray.view(
                         -1, PATCH_HEIGHT * PATCH_WIDTH
-                    ).clone()
+                    )
                     eval_dslr_gray = eval_dslr_gray.view(
                         -1, PATCH_HEIGHT * PATCH_WIDTH
-                    ).clone()
+                    )
 
                     # Randomly swap for discriminator
                     eval_chosen = (
@@ -406,24 +433,22 @@ def run(
                     ) / (PATCH_SIZE * current_batch_size)
                     eval_loss_psnr = 20 * torch.log10(1.0 / torch.sqrt(eval_loss_mse))
 
-                    # EVAL SSIM
+                    # CROP FOR VISUALIZE
                     random_indices = np.random.randint(0, current_batch_size, 5)
 
-                    eval_dslr_crop = eval_dslr_images[random_indices, :]
+                    eval_enhanced_crop = eval_enhanced[random_indices, :]
                     eval_phone_images_crop = eval_phone_images[random_indices, :]
 
-
-                    # GENERATOR
-                    eval_enhanced_crop = generator(eval_phone_images_crop)
-                    ssim_enhanced_crop = eval_enhanced_crop.permute(
+                    # EVAL SSIM
+                    ssim_enhanced_images = eval_enhanced.permute(
                         0, 2, 3, 1
                     )  # (batch,100,100,3)
-                    ssim_dslr_crop = eval_dslr_crop.permute(
+                    ssim_dslr_images = eval_dslr_images.permute(
                         0, 2, 3, 1
-                    )  #(batch,100,100,3)
+                    )  # (batch,100,100,3)
                     eval_ssim = MultiScaleSSIM(
-                        ssim_dslr_crop * 255, ssim_enhanced_crop * 255
-                    ) / len(test_dl)
+                        ssim_dslr_images * 255, ssim_enhanced_images * 255
+                    ) / current_batch_size
 
                     test_loss_gen += eval_loss_generator.item()
                     test_psnr += eval_loss_psnr.item()
@@ -432,23 +457,22 @@ def run(
                     test_color += eval_loss_color.item()
                     test_texture += eval_loss_texture.item()
                     test_tv += eval_loss_tv.item()
-                    test_acc_discrim+=eval_discrim_accuracy.item()
-                    test_loss_discrim+=eval_loss_discrim.item()
+                    test_acc_discrim += eval_discrim_accuracy.item()
+                    test_loss_discrim += eval_loss_discrim.item()
 
-                    test_progress_bar.set_description(
-            "Eval losses - generator (total): %.4g | content: %.4g, color: %.4g, texture: %.4g, tv: %.4g | psnr: %.4g, ms-ssim: %.4g | Elapsed:  %.4g\n "
-            % (
-                
-                eval_loss_generator,
-                eval_loss_content,
-                eval_loss_color,
-                eval_loss_texture,
-                eval_loss_tv,
-                eval_loss_psnr,
-                eval_ssim,
-                (time.time() - start_time)
-            )
-        )
+                    # test_progress_bar.set_description(
+                    #     "Eval losses - generator (total): %.4g | content: %.4g, color: %.4g, texture: %.4g, tv: %.4g | psnr: %.4g, ms-ssim: %.4g | Elapsed:  %.4g\n "
+                    #     % (
+                    #         eval_loss_generator,
+                    #         eval_loss_content,
+                    #         eval_loss_color,
+                    #         eval_loss_texture,
+                    #         eval_loss_tv,
+                    #         eval_loss_psnr,
+                    #         eval_ssim,
+                    #         (time.time() - start_time),
+                    #     )
+                    # )
 
             num_batches = len(test_dl)
 
@@ -459,80 +483,100 @@ def run(
             test_color /= num_batches
             test_texture /= num_batches
             test_tv /= num_batches
-            test_acc_discrim /=num_batches
-            test_loss_discrim/=num_batches
+            test_acc_discrim /= num_batches
+            test_loss_discrim /= num_batches
 
-        plot_test_loss_gen.append(test_loss_gen)
-        plot_test_loss_discrim.append(test_loss_discrim)
-        plot_test_psnr.append(test_psnr)
-        plot_test_ssim.append(test_ssim)
-        plot_test_content.append(test_content)
-        plot_test_color.append(test_color)
-        plot_test_texture.append(test_texture)
-        plot_test_tv.append(test_tv)
-        plot_test_acc_discrim.append(test_acc_discrim)
+            plot_test_loss_gen.append(test_loss_gen)
+            plot_test_loss_discrim.append(test_loss_discrim)
+            plot_test_psnr.append(test_psnr)
+            plot_test_ssim.append(test_ssim)
+            plot_test_content.append(test_content)
+            plot_test_color.append(test_color)
+            plot_test_texture.append(test_texture)
+            plot_test_tv.append(test_tv)
+            plot_test_acc_discrim.append(test_acc_discrim)
 
-        # Save plot
-        func.plot_losses(plot_train_loss_gen, plot_train_loss_discrim, plot_train_acc_discrim, plot_test_loss_gen, plot_test_loss_discrim, plot_test_psnr, plot_test_ssim, plot_test_content, plot_test_color, plot_test_texture, plot_test_tv, plot_test_acc_discrim, "models/model_plot.png")
-    
-
-            
-
-        logs_disc = "Epoch %d, %s | discriminator accuracy | train: %.4g, test: %.4g" % (
-            i,
-            phone,
-            train_acc_discrim,
-            test_acc_discrim,
-        )
-
-        logs_gen = (
-            "generator losses | train: %.4g, test: %.4g | content: %.4g, color: %.4g, texture: %.4g, tv: %.4g | psnr: %.4g, ms-ssim: %.4g\n"
-            % (
-                train_loss_gen,
-                test_loss_gen,
-                test_content,
-                test_color,
-                test_texture,
-                test_tv,
-                test_psnr,
-                test_ssim,
+            # Save plot
+            func.plot_losses(
+                plot_train_loss_gen,
+                plot_train_loss_discrim,
+                plot_train_acc_discrim,
+                plot_test_loss_gen,
+                plot_test_loss_discrim,
+                plot_test_psnr,
+                plot_test_ssim,
+                plot_test_content,
+                plot_test_color,
+                plot_test_texture,
+                plot_test_tv,
+                plot_test_acc_discrim,
+                f"{output_path}model_plot.png",
             )
-        )
 
-        print(logs_disc)
-        print(logs_gen)
-        # Save log
-        # To Overwrite
-        logs = open("models/" + phone + ".txt", "w+")
-        logs.close()
-        # To write
-        logs = open("models/" + phone + ".txt", "a")
-        logs.write(logs_disc)
-        logs.write("\n")
-        logs.write(logs_gen)
-        logs.write("\n")
-        logs.close()
-        # Save visualization
-        idx = 0
-        for crop in eval_enhanced_crop:
-            before_after = np.hstack((eval_phone_images_crop[idx].permute(1,2,0).cpu().numpy(), crop.permute(1,2,0).cpu().numpy())) #[ 3, 100, 100]->[100, 100,3]
-            imageio.imwrite(
-                "visualize_evaluation/" + str(phone) + "_" + str(idx) + "_iteration_" + str(i) + ".jpg",
-                cv2.normalize(
-                    before_after,
-                    None,
-                    alpha=0,
-                    beta=255,
-                    norm_type=cv2.NORM_MINMAX,
-                    dtype=cv2.CV_8U,
-                ).astype(np.uint8),
+            logs_disc = (
+                "Epoch %d, %s | discriminator accuracy | train: %.4g, test: %.4g"
+                % (
+                    i,
+                    phone,
+                    train_acc_discrim,
+                    test_acc_discrim,
+                )
             )
-            idx += 1
 
-        # Save the trained generator model
-        torch.save(generator.state_dict(), f"models/generator_epoches_{i}.pth")
-    print(f'Complete in {time.time()-total_run}')
-    
+            logs_gen = (
+                "generator losses | train: %.4g, test: %.4g | content: %.4g, color: %.4g, texture: %.4g, tv: %.4g | psnr: %.4g, ms-ssim: %.4g\n"
+                % (
+                    train_loss_gen,
+                    test_loss_gen,
+                    test_content,
+                    test_color,
+                    test_texture,
+                    test_tv,
+                    test_psnr,
+                    test_ssim,
+                )
+            )
+
+            print(logs_disc)
+            print(logs_gen)
+            # Save log
+            # To write
+            logs = open(output_path + phone + ".txt", "a")
+            logs.write(logs_disc)
+            logs.write("\n")
+            logs.write(logs_gen)
+            logs.write("\n")
+            logs.close()
+            # Save visualization
+            idx = 0
+            for crop in eval_enhanced_crop:
+                before_after = np.hstack(
+                    (
+                        eval_phone_images_crop[idx].permute(1, 2, 0).cpu().numpy(),
+                        crop.permute(1, 2, 0).cpu().numpy(),
+                    )
+                )  # [ 3, 100, 100]->[100, 100,3]
+                imageio.imwrite(visualize_path
+                    + str(phone)
+                    + "_"
+                    + str(idx)
+                    + "_iteration_"
+                    + str(i)
+                    + ".jpg",
+                    cv2.normalize(
+                        before_after,
+                        None,
+                        alpha=0,
+                        beta=255,
+                        norm_type=cv2.NORM_MINMAX,
+                        dtype=cv2.CV_8U,
+                    ).astype(np.uint8),
+                )
+                idx += 1
+
+            # Save the trained generator model
+            torch.save(generator.state_dict(), f"{weights_path}/generator_epoches_{i}.pth")
+    print(f"Complete in {time.time()-total_run}")
 
 
 if __name__ == "__main__":

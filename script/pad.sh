@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=train         # create a short name for your job
+#SBATCH --job-name=train_s         # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=4       # cpu-cores per task (>1 if multi-threaded tasks)
@@ -10,9 +10,9 @@
 #SBATCH --mail-user=<YourNetID>@princeton.edu
 #Number of GPUs, this can be in the format of "gpu:[1-4]", or "gpu:K80:[1-4] with the type included
 #SBATCH --gres=gpu:1
-#SBATCH --nodelist=selab2
-#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/test.out
-#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/test.err
+#SBATCH --nodelist=selab4
+#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/train.out
+#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/train.err
 
 module purge
 module load anaconda3-2021.05-gcc-9.3.0-r6itwa7
@@ -37,6 +37,7 @@ source activate cinnamon
 # python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
 ## TRAIN ##
+# cd ../ref
 # python train_model.py batch_size=32 model=iphone dped_dir=dped/ vgg_dir=vgg_pretrained/imagenet-vgg-verydeep-19.mat
 
 ## PREDICT
@@ -45,9 +46,13 @@ source activate cinnamon
 
 ## TEST
 cd ..
-# python train.py model=iphone train_size=10 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
-# python test.py
+python train.py batch_size=32 train_size=10000 eval_step=2 lr=1e-4 epochs=20000 w_content=1 w_color=0.1 w_texture=0.4 w_tv=400 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat model=iphone
+
+# python train.py model=iphone lr=1e-4 batch_size=32 train_size=100 eval_step=2 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+# python train.py model=iphone epochs= train_size=10 eval_step=2 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+# # python test.py
 sleep infinity
+
 
 conda deactivate
 

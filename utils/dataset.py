@@ -35,19 +35,24 @@ class DPEDTestDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.test_image[idx]
+    
 
     def load(self, datadir, test_subset):
-        test_image = sorted(
-            [
-                os.path.join(datadir, name)
-                for name in os.listdir(datadir)
-                if os.path.isfile(os.path.join(datadir, name))
-            ]
-        )
+        if  os.path.isfile(datadir):
+            test_image=datadir
+        
+        else:
+            test_image = sorted(
+                [
+                    os.path.join(datadir, name)
+                    for name in os.listdir(datadir)
+                    if os.path.isfile(os.path.join(datadir, name))
+                ]
+            )
 
-        # use 5 images only, if "full" then pass
-        if test_subset == "small":
-            test_image = test_image[0:5]
+            # use 5 images only, if "full" then pass
+            if test_subset == "small":
+                test_image = test_image[0:5]
 
         # Preprocess and transform to tensor
         IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_SIZE = get_specified_res(
@@ -162,7 +167,7 @@ class DPEDTrainDataset(Dataset):
             )
 
             # for debug
-            # NUM_TEST_IMAGES = 10
+            NUM_TEST_IMAGES = 1000
 
             # Reshape and transform to tensor
             print("Loading eval data")

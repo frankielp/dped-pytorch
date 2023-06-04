@@ -1,0 +1,10 @@
+Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
+Lmod is unable to use given MODULEPATH. It is using:
+
+"/sw/spack/share/spack/modules/linux-ubuntu20.04-skylake:/sw/modules/all".
+
+Please use "module use ..." to change MODULEPATH instead. 
+
+
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:01,  1.64it/s] 50%|█████     | 2/4 [00:00<00:00,  2.95it/s] 75%|███████▌  | 3/4 [00:00<00:00,  3.87it/s]100%|██████████| 4/4 [00:01<00:00,  4.50it/s]100%|██████████| 4/4 [00:01<00:00,  3.68it/s]
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:39<01:59, 39.98s/it] 50%|█████     | 2/4 [01:19<01:19, 39.53s/it] 75%|███████▌  | 3/4 [01:58<00:39, 39.53s/it]100%|██████████| 4/4 [02:38<00:00, 39.48s/it]100%|██████████| 4/4 [02:38<00:00, 39.53s/it]

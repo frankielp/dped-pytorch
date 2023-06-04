@@ -12,3 +12,5 @@ git+https://github.com/psf/black
 autoflake
 isort
 tqdm
+#UI
+streamlit

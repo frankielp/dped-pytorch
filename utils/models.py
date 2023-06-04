@@ -22,6 +22,10 @@ class ResNet(nn.Module):
             nn.Conv2d(64, 3, kernel_size=9, stride=1, padding=4),
             nn.Tanh(),
         )
+        # Apply Xavier uniform weight initialization to the generator
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.xavier_uniform_(m.weight)
 
     def forward(self, input_image):
         enhanced = self.generator(input_image)
@@ -41,6 +45,10 @@ class ResidualBlock(nn.Module):
             out_channels, out_channels, kernel_size=3, stride=1, padding=1
         )
         self.bn2 = nn.InstanceNorm2d(out_channels)
+
+        # Apply Xavier uniform weight initialization to the convolutional layers
+        nn.init.xavier_uniform_(self.conv1.weight)
+        nn.init.xavier_uniform_(self.conv2.weight)
 
     def forward(self, x):
         residual = x
@@ -70,6 +78,12 @@ class Adversarial(nn.Module):
             nn.Linear(1024, 2),
             nn.Softmax(dim=1),
         )
+        # Apply Xavier uniform weight initialization to the discriminator
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.xavier_uniform_(m.weight)
+            elif isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
 
     def forward(self, image_):
         out = self.discriminator(image_)

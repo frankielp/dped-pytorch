@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=test          # create a short name for your job
+#SBATCH --job-name=train_std          # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=4       # cpu-cores per task (>1 if multi-threaded tasks)
-#SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G is default)
+#SBATCH --mem-per-cpu=6G         # memory per cpu-core (4G is default)
 #SBATCH --time=5-00:00:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
@@ -11,8 +11,8 @@
 #Number of GPUs, this can be in the format of "gpu:[1-4]", or "gpu:K80:[1-4] with the type included
 #SBATCH --gres=gpu:1
 #SBATCH --nodelist=selab4
-#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/train.out
-#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/train.err
+#SBATCH -o/home/lpnquynh/desktop/dped-pytorch/script/test.out
+#SBATCH -e/home/lpnquynh/desktop/dped-pytorch/script/test.err
 
 module purge
 module load anaconda3-2021.05-gcc-9.3.0-r6itwa7
@@ -45,7 +45,7 @@ source activate cinnamon
 
 ## TEST
 cd ..
-python train.py model=iphone train_size=30000 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
+python train.py batch_size=50 train_size=30000 eval_step=2 lr=2e-4 epochs=20000 w_content=1 w_color=0.1 w_texture=0.4 w_tv=400 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat model=iphone
 # python train.py model=iphone epochs=10 train_size=10 eval_step=2 datadir=dped/ vgg_pretrained=pretrained/imagenet-vgg-verydeep-19.mat
 # python test.py
 sleep infinity

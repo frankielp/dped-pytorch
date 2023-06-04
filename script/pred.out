@@ -1,0 +1,41 @@
+Sat Jun  3 11:54:50 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.105.01   Driver Version: 515.105.01   CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
+| 37%   42C    P8    27W / 300W |      0MiB / 24576MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Thu_Nov_18_09:45:30_PST_2021
+Cuda compilation tools, release 11.5, V11.5.119
+Build cuda_11.5.r11.5/compiler.30672275_0
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/condabin/conda
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/conda
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/conda-env
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/activate
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/bin/deactivate
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/profile.d/conda.sh
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/fish/conf.d/conda.fish
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/shell/condabin/Conda.psm1
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/shell/condabin/conda-hook.ps1
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/lib/python3.8/site-packages/xontrib/conda.xsh
+no change     /sw/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/anaconda3-2021.05-r6itwa7dvyh4gisucvjnrjz3uom3s7oq/etc/profile.d/conda.csh
+no change     /home/lpnquynh/.bashrc
+No action taken.
+Loading test data:
+Processing image
+Saved enhanced images to output/exp_0/

@@ -36,9 +36,9 @@ def SSIM(img1, img2, max_val=255, filter_size=11, filter_sigma=1.5, k1=0.01, k2=
     # Calculate SSIM and CS for multi-scale images
     img1 = img1.float()
     img2 = img2.float()
-    
-    img1_cpu=img1.cpu()
-    img2_cpu=img2.cpu()
+
+    img1_cpu = img1.cpu()
+    img2_cpu = img2.cpu()
     _, height, width, _ = img1_cpu.shape
 
     size = min(filter_size, height, width)
@@ -142,15 +142,15 @@ if __name__ == "__main__":
     print("Testing ssim.py")
     # Test case 1
     img1 = cv2.imread(
-        "../ref/test_img/test00.png"
+        "../ref/test_img/test03.png"
     )  # Replace 'image1.jpg' with the path to your first image
     img2 = cv2.imread(
-        "../ref/test_img/test01.png"
-    )  # Replace 'image2.jpg' with the path to your second image
+        "../ref/test_img/test00.png"
+    )  # Replace 'image1.jpg' with the path to your second image
     img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0]))
     img1 = torch.from_numpy(np.expand_dims(img1, axis=0))
     img2 = torch.from_numpy(np.expand_dims(img2, axis=0))
-    print("input shape", img1.shape)
+
     max_val = 255
     filter_size = 11
     filter_sigma = 1.5
@@ -171,14 +171,15 @@ if __name__ == "__main__":
 
     # Test case 2 (additional test case)
     img3 = cv2.imread(
-        "../ref/test_img/test02.png"
+        "../dped/iphone/test_data/patches/iphone/10.jpg"
     )  # Replace 'image3.jpg' with the path to your third image
     img4 = cv2.imread(
-        "../ref/test_img/test03.png"
+        "../dped/iphone/test_data/patches/iphone/10.jpg"
     )  # Replace 'image4.jpg' with the path to your fourth image
     img3 = cv2.resize(img3, (img4.shape[1], img4.shape[0]))
     img3 = torch.from_numpy(np.expand_dims(img3, axis=0))
     img4 = torch.from_numpy(np.expand_dims(img4, axis=0))
+    print("input shape", img3.shape)
 
     max_val = 255
     filter_size = 11
@@ -200,7 +201,7 @@ if __name__ == "__main__":
 
     # Assert statements
     assert ms_ssim >= 0.0 and ms_ssim <= 1.0, "Invalid MS-SSIM value for test case 1"
-    assert ms_ssim2 >= 0.0 and ms_ssim2 <= 1.0, "Invalid MS-SSIM value for test case 2"
+    assert ms_ssim2 == 1.0, "Invalid MS-SSIM value for test case 2"
 
     print(f"ssim for test case 1 {ms_ssim}")
     print(f"ssim for test case 2 {ms_ssim2}")

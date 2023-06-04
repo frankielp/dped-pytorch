@@ -5,6 +5,7 @@ __pycache__
 dped.gz
 ref
 pretrained/
+models/
 visualize_evaluation/
 dped/*
 .gitignore
