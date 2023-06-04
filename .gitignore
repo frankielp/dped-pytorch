@@ -3,6 +3,7 @@ __pycache__
 *egg-info*
 *.DS_Store*
 dped.gz
+script/*
 ref
 pretrained/imagenet-vgg-verydeep-19.mat
 models/
