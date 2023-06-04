@@ -4,11 +4,10 @@ __pycache__
 *.DS_Store*
 dped.gz
 ref
-pretrained/
+pretrained/imagenet-vgg-verydeep-19.mat
 models/
 visualize_evaluation/
 dped/*
 .gitignore
 .gitattribute
 
-!models/exp_14/weights/generator_epoches_411.pth

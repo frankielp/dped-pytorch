@@ -1904,3 +1904,11 @@ Start evaluating
 Epoch 461, iphone | discriminator accuracy | train: 1, test: 1
 generator losses | train: 0.9998, test: nan | content: 1.3e-07, color: 79.79, texture: nan, tv: 6.59e-08 | psnr: 15.87, ms-ssim: 0.0254
 
+Epochs: 463/20000
+ Train Loss - Generator: 1.0213, Discriminator: 0.0142 | Elapsed: 103.1065
+Epochs: 464/20000
+ Train Loss - Generator: 1.0152, Discriminator: 0.0110 | Elapsed: 102.9549
+Start evaluating
+Epoch 463, iphone | discriminator accuracy | train: 0.9999, test: 1
+generator losses | train: 1.015, test: nan | content: 1.245e-07, color: 80.35, texture: nan, tv: 7.514e-08 | psnr: 15.67, ms-ssim: 0.02559
+

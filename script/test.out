@@ -658,3 +658,9 @@ generator losses | train: 3.03, test: nan | content: 8.514e-08, color: 84.12, te
 
 Epochs: 151/20000
  Train Loss - Generator: 2.5836, Discriminator: 0.0372 | Elapsed: 317.9107
+Epochs: 152/20000
+ Train Loss - Generator: 2.2185, Discriminator: 0.0196 | Elapsed: 318.0638
+Start evaluating
+Epoch 151, iphone | discriminator accuracy | train: 0.9998, test: 1
+generator losses | train: 2.218, test: nan | content: 9.741e-08, color: 80.97, texture: nan, tv: 5.08e-08 | psnr: 15.48, ms-ssim: 0.01684
+
