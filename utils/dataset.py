@@ -35,12 +35,11 @@ class DPEDTestDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.test_image[idx]
-    
 
     def load(self, datadir, test_subset):
-        if  os.path.isfile(datadir):
-            test_image=datadir
-        
+        if os.path.isfile(datadir):
+            test_image = datadir
+
         else:
             test_image = sorted(
                 [

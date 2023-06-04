@@ -1,6 +1,6 @@
+import os
 import sys
 import time
-import os
 
 import cv2
 import imageio
@@ -46,26 +46,26 @@ def run(
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Output folder
-    output_path = 'models'
+    output_path = "models"
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     folders = os.listdir(output_path)
     new_id = 0
     if len(folders) > 0:
         for folder in folders:
-            if not folder.startswith('exp_'):
+            if not folder.startswith("exp_"):
                 continue
-            new_id = max(new_id, int(folder.split('exp_')[-1]))
+            new_id = max(new_id, int(folder.split("exp_")[-1]))
         new_id += 1
-    output_path = os.path.join(output_path, f'exp_{new_id}')
+    output_path = os.path.join(output_path, f"exp_{new_id}")
     os.makedirs(output_path)
-    weights_path = os.path.join(output_path, 'weights')
+    weights_path = os.path.join(output_path, "weights")
     os.mkdir(weights_path)
-    visualize_path=os.path.join(output_path, 'visualize')
+    visualize_path = os.path.join(output_path, "visualize")
     os.mkdir(visualize_path)
-    output_path=output_path+'/'
-    visualize_path=visualize_path+'/'
-    weights_path=weights_path+'/'
+    output_path = output_path + "/"
+    visualize_path = visualize_path + "/"
+    weights_path = weights_path + "/"
 
     # Set random seed
     torch.manual_seed(0)
@@ -122,7 +122,7 @@ def run(
     plot_test_texture = []
     plot_test_tv = []
     plot_test_acc_discrim = []
-    
+
     # Save log
     # To Overwrite
     logs = open(output_path + phone + ".txt", "w+")
@@ -146,15 +146,11 @@ def run(
 
             # A. FORWARD
             # Reshape to fit into the net
-            phone_images = (
-                phone_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
-                .permute(0, 3, 1, 2)
-                
+            phone_images = phone_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3).permute(
+                0, 3, 1, 2
             )  # (batch,3,100,100)
-            dslr_images = (
-                dslr_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
-                .permute(0, 3, 1, 2)
-                
+            dslr_images = dslr_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3).permute(
+                0, 3, 1, 2
             )  # (batch,3,100,100)
 
             # GENERATOR
@@ -189,7 +185,9 @@ def run(
             # 1) Texture (adversarial) loss
 
             discrim_target = torch.cat([chosen, 1 - chosen], dim=1)
-            loss_discrim = -torch.sum(discrim_target * torch.log(torch.clamp(discrim_predictions, 1e-10, 1.0)))
+            loss_discrim = -torch.sum(
+                discrim_target * torch.log(torch.clamp(discrim_predictions, 1e-10, 1.0))
+            )
             loss_texture = -loss_discrim.detach()
 
             correct_predictions = torch.eq(
@@ -256,8 +254,6 @@ def run(
             loss_discrim.backward()
             disc_optimizer.step()
 
-            
-
             # Accumulate losses and accuracy
             train_loss_gen += loss_generator.item()
             train_loss_discrim += loss_discrim.item()
@@ -269,7 +265,9 @@ def run(
         train_loss_gen /= len(train_dl)
         train_loss_discrim /= len(train_dl)
         train_acc_discrim /= len(train_dl)
-        print(f"Epochs: {i+1}/{epochs}\n Train Loss - Generator: {train_loss_gen:.4f}, Discriminator: {train_loss_discrim:.4f} | Elapsed: {time.time() - start_time:.4f}")
+        print(
+            f"Epochs: {i+1}/{epochs}\n Train Loss - Generator: {train_loss_gen:.4f}, Discriminator: {train_loss_discrim:.4f} | Elapsed: {time.time() - start_time:.4f}"
+        )
 
         plot_train_loss_gen.append(train_loss_gen)
         plot_train_loss_discrim.append(train_loss_discrim)
@@ -301,15 +299,15 @@ def run(
 
                     # A. FORWARD
                     # Reshape to fit into the net
-                    eval_phone_images = (
-                        eval_phone_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
-                        .permute(0, 3, 1, 2)
-                        
+                    eval_phone_images = eval_phone_images.view(
+                        -1, PATCH_HEIGHT, PATCH_WIDTH, 3
+                    ).permute(
+                        0, 3, 1, 2
                     )  # (batch,3,100,100)
-                    eval_dslr_images = (
-                        eval_dslr_images.view(-1, PATCH_HEIGHT, PATCH_WIDTH, 3)
-                        .permute(0, 3, 1, 2)
-                        
+                    eval_dslr_images = eval_dslr_images.view(
+                        -1, PATCH_HEIGHT, PATCH_WIDTH, 3
+                    ).permute(
+                        0, 3, 1, 2
                     )  # (batch,3,100,100)
 
                     # GENERATOR
@@ -329,9 +327,7 @@ def run(
                     eval_enhanced_gray = eval_enhanced_gray.view(
                         -1, PATCH_HEIGHT * PATCH_WIDTH
                     )
-                    eval_dslr_gray = eval_dslr_gray.view(
-                        -1, PATCH_HEIGHT * PATCH_WIDTH
-                    )
+                    eval_dslr_gray = eval_dslr_gray.view(-1, PATCH_HEIGHT * PATCH_WIDTH)
 
                     # Randomly swap for discriminator
                     eval_chosen = (
@@ -446,9 +442,12 @@ def run(
                     ssim_dslr_images = eval_dslr_images.permute(
                         0, 2, 3, 1
                     )  # (batch,100,100,3)
-                    eval_ssim = MultiScaleSSIM(
-                        ssim_dslr_images * 255, ssim_enhanced_images * 255
-                    ) / current_batch_size
+                    eval_ssim = (
+                        MultiScaleSSIM(
+                            ssim_dslr_images * 255, ssim_enhanced_images * 255
+                        )
+                        / current_batch_size
+                    )
 
                     test_loss_gen += eval_loss_generator.item()
                     test_psnr += eval_loss_psnr.item()
@@ -556,7 +555,8 @@ def run(
                         crop.permute(1, 2, 0).cpu().numpy(),
                     )
                 )  # [ 3, 100, 100]->[100, 100,3]
-                imageio.imwrite(visualize_path
+                imageio.imwrite(
+                    visualize_path
                     + str(phone)
                     + "_"
                     + str(idx)
@@ -575,7 +575,9 @@ def run(
                 idx += 1
 
             # Save the trained generator model
-            torch.save(generator.state_dict(), f"{weights_path}/generator_epoches_{i}.pth")
+            torch.save(
+                generator.state_dict(), f"{weights_path}/generator_epoches_{i}.pth"
+            )
     print(f"Complete in {time.time()-total_run}")
 
 

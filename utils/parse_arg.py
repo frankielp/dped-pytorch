@@ -94,8 +94,8 @@ def test_args(arguments):
         "phone": "",
         "datadir": "dped/",
         "test_subset": "small",
-        "weight_path":"",
-        "resolution": "orig"
+        "weight_path": "",
+        "resolution": "orig",
     }
 
     for args in arguments:
@@ -111,11 +111,8 @@ def test_args(arguments):
         if args.startswith("test_subset"):
             params["test_subset"] = args.split("=")[1]
 
-
         if args.startswith("resolution"):
             params["resolution"] = args.split("=")[1]
-
-
 
     if params["phone"] == "":
         print(
@@ -126,12 +123,8 @@ def test_args(arguments):
         )
         sys.exit()
     if params["weight_path"] == "":
-        print(
-            "\nPlease specify the weight\n"
-        )
-        print(
-            "python test_model.py weight_path=path_to_gen.pth\n"
-        )
+        print("\nPlease specify the weight\n")
+        print("python test_model.py weight_path=path_to_gen.pth\n")
         sys.exit()
 
     return params

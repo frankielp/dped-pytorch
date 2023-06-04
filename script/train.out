@@ -1888,3 +1888,19 @@ Start evaluating
 Epoch 457, iphone | discriminator accuracy | train: 0.9998, test: 1
 generator losses | train: 1.062, test: nan | content: 1.29e-07, color: 79.72, texture: nan, tv: 6.868e-08 | psnr: 15.81, ms-ssim: 0.0256
 
+Epochs: 459/20000
+ Train Loss - Generator: 1.0228, Discriminator: 0.0341 | Elapsed: 103.1612
+Epochs: 460/20000
+ Train Loss - Generator: 1.0269, Discriminator: 0.0002 | Elapsed: 102.6581
+Start evaluating
+Epoch 459, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 1.027, test: nan | content: 1.324e-07, color: 82.44, texture: nan, tv: 7.356e-08 | psnr: 15.61, ms-ssim: 0.02546
+
+Epochs: 461/20000
+ Train Loss - Generator: 1.0087, Discriminator: 0.0169 | Elapsed: 102.7517
+Epochs: 462/20000
+ Train Loss - Generator: 0.9998, Discriminator: 0.0003 | Elapsed: 102.0187
+Start evaluating
+Epoch 461, iphone | discriminator accuracy | train: 1, test: 1
+generator losses | train: 0.9998, test: nan | content: 1.3e-07, color: 79.79, texture: nan, tv: 6.59e-08 | psnr: 15.87, ms-ssim: 0.0254
+

@@ -656,3 +656,5 @@ Start evaluating
 Epoch 149, iphone | discriminator accuracy | train: 0.9999, test: 0.9989
 generator losses | train: 3.03, test: nan | content: 8.514e-08, color: 84.12, texture: nan, tv: 4.53e-08 | psnr: 15.69, ms-ssim: 0.01722
 
+Epochs: 151/20000
+ Train Loss - Generator: 2.5836, Discriminator: 0.0372 | Elapsed: 317.9107
