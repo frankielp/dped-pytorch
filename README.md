@@ -2,6 +2,7 @@
 
 This repository contains a reimplementation of the Automatic Photo Quality Enhancement using Deep Convolutional Networks project. The project aims to enhance the quality of photos using deep convolutional networks.
 
+![DEMO](demo.jpeg)
 ## Environment Setup
 To set up the environment, please follow these steps:
 
