@@ -65,8 +65,8 @@ python predict.py model=iphone datadir=test_img/ test_subset=full iteration=1800
 4. Define Generator       - done
 5. Define Discriminator   - done
 6. Training               - done
-7. Predict
-8. Web (optional)
+7. Predict                - done
+8. Web (optional)         - done
 9. FINALIZATION (docstring, format, readme)
 
 # Citation
